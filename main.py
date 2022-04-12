@@ -9,8 +9,8 @@ from threading import Thread
 #Puntuacion
 global score
 score = 0
-jump_counter = 0
-fall = True
+global lives
+lives = 3
 
 #SplashAnimation (Se usaron las idead presentadas por Codemy.com, de generar el splash por medio de una ventana)
 anim = tk.Tk()
@@ -54,7 +54,7 @@ def main():
     menuwindow.configure(background = "black")
 
     #Ventana de Juego
-    def game():
+    def game1():
         gamewindow = tk.Toplevel()
         gamewindow.title("Prepare to Die")
         gamewindow.geometry("1080x720")
@@ -72,6 +72,13 @@ def main():
         nuevoPrin = ImageTk.PhotoImage(resizedPrin, master=canvasGame)
         principal = canvasGame.create_image(125, 600, image=nuevoPrin, anchor=tk.NW)
 
+        #Imagen "Dama"
+        imageDama = Image.open("chi.png")
+        resizedDama = imageDama.resize((75, 75), Image.ANTIALIAS)
+        nuevoDama = ImageTk.PhotoImage(resizedDama, master=canvasGame)
+        dama = canvasGame.create_image(225, 138, image=nuevoDama, anchor=tk.NW)
+
+
         #Platformas
         imagePlat1 = Image.open("platA.png")
         resizedPlat1 = imagePlat1.resize((1080,50), Image.ANTIALIAS)
@@ -81,6 +88,21 @@ def main():
         nuevoPlat2 = ImageTk.PhotoImage(resizedPlat2, master=canvasGame)
         plat2 = canvasGame.create_image(0, 475, image=nuevoPlat2, anchor=tk.NW)
         plat3 = canvasGame.create_image(700, 475, image=nuevoPlat2, anchor=tk.NW)
+        plat4 = canvasGame.create_image(-179, 275, image= nuevoPlat1, anchor=tk.NW)
+
+        #Gradas
+        resizedGradA1 = imagePlat1.resize((200, 10), Image.ANTIALIAS)
+        nuevoGradA1 = ImageTk.PhotoImage(resizedGradA1, master=canvasGame)
+        gradaA1 = canvasGame.create_image(475, 475, image=nuevoGradA1, anchor=tk.NW)
+        gradaA2 = canvasGame.create_image(475, 547, image=nuevoGradA1, anchor=tk.NW)
+        gradaA3 = canvasGame.create_image(475, 610, image=nuevoGradA1, anchor=tk.NW)
+        gradaB1 = canvasGame.create_image(900, 275, image=nuevoGradA1, anchor=tk.NW)
+        gradaB2 = canvasGame.create_image(900, 350, image=nuevoGradA1, anchor=tk.NW)
+        gradaB3 = canvasGame.create_image(900, 409, image=nuevoGradA1, anchor=tk.NW)
+        resizedGradA2 = imagePlat1.resize((200, 10), Image.ANTIALIAS)
+        nuevoGradA2 = ImageTk.PhotoImage(resizedGradA2, master=canvasGame)
+        gradaC1 = canvasGame.create_image(250, 200, image= nuevoGradA2, anchor=tk.NW)
+
 
         #Movimiento
         def movimiento():
@@ -101,13 +123,11 @@ def main():
             def jump(event):
                 x = 0
                 diff = 0  ## Difference to initial level
-                y = -4  ## Initial speed in y direction
+                y = -3.7  ## Initial speed in y direction
                 grav = .1  ## Gravitation
 
                 while diff >= 0:  ## While it is still jumping (higher than initially)
                     canvasGame.move(principal, x, y)
-                    edgeReached()
-                    collision()
                     canvasGame.update()
                     time.sleep(.01)  ## Pause for 1/100 second
                     diff -= y  ## Update current jumping height
@@ -119,41 +139,18 @@ def main():
                 canvasGame.move(principal, x, y)
                 collision()
 
-            def climb(event):
+            def score(event):
                 x = 0
                 y = 5
                 edgeReached()
                 canvasGame.move(principal,x, y)
                 collision()
 
-            def gravity():
-                pri = canvasGame.bbox(principal)
-                prim = canvasGame.bbox(plat1)
-                seg = canvasGame.bbox(plat2)
-                ter = canvasGame.bbox(plat3)
-                while not (prim[1] < pri[3] < prim[3] or prim[0] < pri[0] < prim[2] or prim[0] < pri[2] < prim[2]):
-                    def gravedad():
-                        g = .1
-                        x = 0
-                        y = -5
-                        while g == .1:
-                            canvasGame.moveto(principal, x, y)
-                            canvasGame.update()
-                            edgeReached()
-                            collision()
-                            y += g
-                        edgeReached()
-                        canvasGame.move(principal, x, y)
-                        collision()
-
-                    gravedad()
-
-
-
             canvasGame.bind_all("<Left>", left)
             canvasGame.bind_all("<Right>", right)
             canvasGame.bind_all("<Up>", jump)
-            canvasGame.bind_all("<Down>", climb)
+            canvasGame.bind_all("<Down>", score)
+
         movimiento()
         """
         def gravedad():
@@ -163,6 +160,9 @@ def main():
             while g == .1:
                 canvasGame.moveto(principal, x, y)
                 canvasGame.update()
+                edgeReached()
+                collision()
+                movimiento()
                 y += g
             edgeReached()
             canvasGame.move(principal,x, y)
@@ -176,12 +176,27 @@ def main():
         #Colisiones
         def collision():
             princol= canvasGame.bbox(principal)
+            damacol= canvasGame.bbox(dama)
             plat1col=canvasGame.bbox(plat1)
             plat2col=canvasGame.bbox(plat2)
             plat3col=canvasGame.bbox(plat3)
+            plat4col=canvasGame.bbox(plat4)
+            gradaA1col=canvasGame.bbox(gradaA1)
+            gradaA2col=canvasGame.bbox(gradaA2)
+            gradaA3col = canvasGame.bbox(gradaA3)
+            gradaB1col = canvasGame.bbox(gradaB1)
+            gradaB2col = canvasGame.bbox(gradaB2)
+            gradaB3col = canvasGame.bbox(gradaB3)
+            gradaC1col = canvasGame.bbox(gradaC1)
+
             #Primera Plataforma
             global score
-            if plat1col[1] < princol[3] < plat1col[3] and plat1col[0] < princol[0] < plat1col[2] \
+            if damacol[0] < princol[0] < damacol[2] and damacol[1] < princol[3] < damacol[3]:
+                score += 900
+                scoreShow.configure(text="SCORE: " + str(score))
+                time.sleep(1.0)
+                gamewindow.destroy()
+            elif plat1col[1] < princol[3] < plat1col[3] and plat1col[0] < princol[0] < plat1col[2] \
                     and plat1col[0] < princol[2] < plat1col[2]:
                 canvasGame.move(principal, 0, -5)
             elif plat1col[1] < princol[3] < plat1col[3] and plat1col[0] < princol[0] < plat1col[2]:
@@ -192,23 +207,109 @@ def main():
             elif plat2col[1] < princol[3] < plat2col[3] and plat2col[0] < princol[0] < plat2col[2] \
                     and plat2col[0] < princol[2] < plat2col[2]:
                 score +=1
-                scoreShow.configure(text="Your Score: " + str(score))
+                scoreShow.configure(text="SCORE: " + str(score))
                 canvasGame.move(principal, 0, -5)
             elif plat2col[1] < princol[3] < plat2col[3] and plat2col[0] < princol[0] < plat2col[2]:
                 canvasGame.move(principal, 0, -5)
             elif plat2col[1] < princol[3] < plat2col[3] and plat2col[0] < princol[2] < plat2col[2]:
                 canvasGame.move(principal, 0, -5)
+            elif plat2col[1] < princol[1] < plat2col[3] and plat2col[0] < princol[0] < plat2col[2] \
+                    and plat2col[0] < princol[2] < plat2col[2]:
+                canvasGame.move(principal, 0, 5)
+            elif plat2col[1] < princol[1] < plat2col[3] and plat2col[0] < princol[0] < plat2col[2]:
+                canvasGame.move(principal, 0, 5)
+            elif plat2col[1] < princol[1] < plat2col[3] and plat2col[0] < princol[2] < plat2col[2]:
+                canvasGame.move(principal, 0, 5)
             #Tercera Plataforma
             elif plat3col[1] < princol[3] < plat3col[3] and plat3col[0] < princol[0] < plat3col[2] \
                     and plat3col[0] < princol[2] < plat3col[2]:
-                score += 1
-                scoreShow.configure(text="Your Score: " + str(score))
+                score +=1
+                scoreShow.configure(text="SCORE: " + str(score))
                 canvasGame.move(principal, 0, -5)
             elif plat3col[1] < princol[3] < plat3col[3] and plat3col[0] < princol[0] < plat3col[2]:
                 canvasGame.move(principal, 0, -5)
             elif plat3col[1] < princol[3] < plat3col[3] and plat3col[0] < princol[2] < plat3col[2]:
                 canvasGame.move(principal, 0, -5)
-
+            elif plat3col[1] < princol[1] < plat3col[3] and plat3col[0] < princol[0] < plat3col[2] \
+                    and plat3col[0] < princol[2] < plat3col[2]:
+                canvasGame.move(principal, 0, 5)
+            elif plat3col[1] < princol[1] < plat3col[3] and plat3col[0] < princol[0] < plat3col[2]:
+                canvasGame.move(principal, 0, 5)
+            elif plat3col[1] < princol[1] < plat3col[3] and plat3col[0] < princol[2] < plat3col[2]:
+                canvasGame.move(principal, 0, 5)
+            # Tercera Plataforma
+            elif plat4col[1] < princol[3] < plat4col[3] and plat4col[0] < princol[0] < plat4col[2] \
+                    and plat4col[0] < princol[2] < plat4col[2]:
+                score += 1
+                scoreShow.configure(text="SCORE: " + str(score))
+                canvasGame.move(principal, 0, -5)
+            elif plat4col[1] < princol[3] < plat4col[3] and plat4col[0] < princol[0] < plat4col[2]:
+                canvasGame.move(principal, 0, -5)
+            elif plat4col[1] < princol[3] < plat4col[3] and plat4col[0] < princol[2] < plat4col[2]:
+                canvasGame.move(principal, 0, -5)
+            elif plat4col[1] < princol[1] < plat4col[3] and plat4col[0] < princol[0] < plat4col[2] \
+                    and plat4col[0] < princol[2] < plat4col[2]:
+                canvasGame.move(principal, 0, 5)
+            elif plat4col[1] < princol[1] < plat4col[3] and plat4col[0] < princol[0] < plat4col[2]:
+                canvasGame.move(principal, 0, 5)
+            elif plat4col[1] < princol[1] < plat4col[3] and plat4col[0] < princol[2] < plat4col[2]:
+                canvasGame.move(principal, 0, 5)
+            #GradaA1
+            elif gradaA1col[1] < princol[3] < gradaA1col[3] and gradaA1col[0] < princol[0] < gradaA1col[2] \
+                    and gradaA1col[0] < princol[2] < gradaA1col[2]:
+                canvasGame.move(principal, 0, -5)
+            elif gradaA1col[1] < princol[3] < gradaA1col[3] and gradaA1col[0] < princol[0] < gradaA1col[2]:
+                canvasGame.move(principal, 0, -5)
+            elif gradaA1col[1] < princol[3] < gradaA1col[3] and gradaA1col[0] < princol[2] < gradaA1col[2]:
+                canvasGame.move(principal, 0, -5)
+            # GradaA2
+            elif gradaA2col[1] < princol[3] < gradaA2col[3] and gradaA2col[0] < princol[0] < gradaA2col[2] \
+                    and gradaA2col[0] < princol[2] < gradaA2col[2]:
+                canvasGame.move(principal, 0, -5)
+            elif gradaA2col[1] < princol[3] < gradaA2col[3] and gradaA2col[0] < princol[0] < gradaA2col[2]:
+                canvasGame.move(principal, 0, -5)
+            elif gradaA2col[1] < princol[3] < gradaA2col[3] and gradaA2col[0] < princol[2] < gradaA2col[2]:
+                canvasGame.move(principal, 0, -5)
+            # GradaA3
+            elif gradaA3col[1] < princol[3] < gradaA3col[3] and gradaA3col[0] < princol[0] < gradaA3col[2] \
+                    and gradaA3col[0] < princol[2] < gradaA3col[2]:
+                canvasGame.move(principal, 0, -5)
+            elif gradaA3col[1] < princol[3] < gradaA3col[3] and gradaA3col[0] < princol[0] < gradaA3col[2]:
+                canvasGame.move(principal, 0, -5)
+            elif gradaA3col[1] < princol[3] < gradaA3col[3] and gradaA3col[0] < princol[2] < gradaA3col[2]:
+                canvasGame.move(principal, 0, -5)
+            # GradaB1
+            elif gradaB1col[1] < princol[3] < gradaB1col[3] and gradaB1col[0] < princol[0] < gradaB1col[2] \
+                    and gradaB1col[0] < princol[2] < gradaB1col[2]:
+                canvasGame.move(principal, 0, -5)
+            elif gradaB1col[1] < princol[3] < gradaB1col[3] and gradaB1col[0] < princol[0] < gradaB1col[2]:
+                canvasGame.move(principal, 0, -5)
+            elif gradaB1col[1] < princol[3] < gradaB1col[3] and gradaB1col[0] < princol[2] < gradaB1col[2]:
+                canvasGame.move(principal, 0, -5)
+            # GradaB2
+            elif gradaB2col[1] < princol[3] < gradaB2col[3] and gradaB2col[0] < princol[0] < gradaB2col[2] \
+                    and gradaB2col[0] < princol[2] < gradaB2col[2]:
+                canvasGame.move(principal, 0, -5)
+            elif gradaB2col[1] < princol[3] < gradaB2col[3] and gradaB2col[0] < princol[0] < gradaB2col[2]:
+                canvasGame.move(principal, 0, -5)
+            elif gradaB2col[1] < princol[3] < gradaB2col[3] and gradaB2col[0] < princol[2] < gradaB2col[2]:
+                canvasGame.move(principal, 0, -5)
+            # GradaB3
+            elif gradaB3col[1] < princol[3] < gradaB3col[3] and gradaB3col[0] < princol[0] < gradaB3col[2] \
+                    and gradaB3col[0] < princol[2] < gradaB3col[2]:
+                canvasGame.move(principal, 0, -5)
+            elif gradaB3col[1] < princol[3] < gradaB3col[3] and gradaB3col[0] < princol[0] < gradaB3col[2]:
+                canvasGame.move(principal, 0, -5)
+            elif gradaB3col[1] < princol[3] < gradaB3col[3] and gradaB3col[0] < princol[2] < gradaB3col[2]:
+                canvasGame.move(principal, 0, -5)
+            # GradaC1
+            elif gradaC1col[1] < princol[3] < gradaC1col[3] and gradaC1col[0] < princol[0] < gradaC1col[2] \
+                    and gradaB3col[0] < princol[2] < gradaB3col[2]:
+                canvasGame.move(principal, 0, -5)
+            elif gradaC1col[1] < princol[3] < gradaC1col[3] and gradaC1col[0] < princol[0] < gradaC1col[2]:
+                canvasGame.move(principal, 0, -5)
+            elif gradaC1col[1] < princol[3] < gradaC1col[3] and gradaC1col[0] < princol[2] < gradaC1col[2]:
+                canvasGame.move(principal, 0, -5)
 
 
         #Pesonaje no se salga de la ventana
@@ -230,11 +331,17 @@ def main():
 
         #Puntaucion
         global score
-        scoreShow = tk.Label(canvasGame, text= "SCORE:"+str(score), bg= "#072E60", fg= "white")
+        scoreShow = tk.Label(canvasGame, text= "SCORE: "+str(score), bg= "#072E60", fg= "white")
         scoreShow.place(x = 950, y = 25)
 
+        #Vidas
+        global lives
+        livesShow = tk.Label(canvasGame, text= "LIVES: "+str(lives), bg= "black", fg="white")
+        livesShow.place(x=100, y=25)
         gamewindow.mainloop()
 
+        #Puntos que gano
+        scorePlus = tk.Label(canvasGame)
     def leaderboard():
         scorewindow = tk.Toplevel()
         scorewindow.title("Hall of Death")
@@ -246,7 +353,7 @@ def main():
         scorewindow.mainloop()
 
     #Botones
-    botonStart=tk.Button(menuwindow, text= "Start the Journey", command=game)
+    botonStart=tk.Button(menuwindow, text= "Start the Journey", command=game1)
     botonStart.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
     botonScore = tk.Button(menuwindow, text="Hall of Death", command=leaderboard)
