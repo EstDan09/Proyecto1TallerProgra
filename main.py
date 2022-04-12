@@ -7,6 +7,7 @@ import time
 from threading import Thread
 
 #Puntuacion
+global score
 score = 0
 jump_counter = 0
 fall = True
@@ -76,10 +77,10 @@ def main():
         resizedPlat1 = imagePlat1.resize((1080,50), Image.ANTIALIAS)
         nuevoPlat1 = ImageTk.PhotoImage(resizedPlat1, master= canvasGame)
         plat1 = canvasGame.create_image(0, 675, image= nuevoPlat1, anchor=tk.NW)
-        resizedPlat2 = imagePlat1.resize((400, 50), Image.ANTIALIAS)
+        resizedPlat2 = imagePlat1.resize((450, 50), Image.ANTIALIAS)
         nuevoPlat2 = ImageTk.PhotoImage(resizedPlat2, master=canvasGame)
-        plat2 = canvasGame.create_image(50, 475, image=nuevoPlat2, anchor=tk.NW)
-        plat3 = canvasGame.create_image(600, 475, image=nuevoPlat2, anchor=tk.NW)
+        plat2 = canvasGame.create_image(0, 475, image=nuevoPlat2, anchor=tk.NW)
+        plat3 = canvasGame.create_image(700, 475, image=nuevoPlat2, anchor=tk.NW)
 
         #Movimiento
         def movimiento():
@@ -105,10 +106,14 @@ def main():
 
                 while diff >= 0:  ## While it is still jumping (higher than initially)
                     canvasGame.move(principal, x, y)
+                    edgeReached()
+                    collision()
                     canvasGame.update()
                     time.sleep(.01)  ## Pause for 1/100 second
                     diff -= y  ## Update current jumping height
                     y += grav  ## Update the speed in y direction
+                    edgeReached()
+                    collision()
                 y = 0  ## Just so it is not moved again, afterwards
                 edgeReached()
                 canvasGame.move(principal, x, y)
@@ -126,7 +131,7 @@ def main():
                 prim = canvasGame.bbox(plat1)
                 seg = canvasGame.bbox(plat2)
                 ter = canvasGame.bbox(plat3)
-                while not (prim[1] < pri[3] < prim[3] and prim[0] < pri[0] < prim[2] and prim[0] < pri[2] < prim[2]):
+                while not (prim[1] < pri[3] < prim[3] or prim[0] < pri[0] < prim[2] or prim[0] < pri[2] < prim[2]):
                     def gravedad():
                         g = .1
                         x = 0
@@ -134,6 +139,8 @@ def main():
                         while g == .1:
                             canvasGame.moveto(principal, x, y)
                             canvasGame.update()
+                            edgeReached()
+                            collision()
                             y += g
                         edgeReached()
                         canvasGame.move(principal, x, y)
@@ -184,10 +191,22 @@ def main():
             #Segunda Plataforma
             elif plat2col[1] < princol[3] < plat2col[3] and plat2col[0] < princol[0] < plat2col[2] \
                     and plat2col[0] < princol[2] < plat2col[2]:
+                score +=1
+                scoreShow.configure(text="Your Score: " + str(score))
                 canvasGame.move(principal, 0, -5)
             elif plat2col[1] < princol[3] < plat2col[3] and plat2col[0] < princol[0] < plat2col[2]:
                 canvasGame.move(principal, 0, -5)
             elif plat2col[1] < princol[3] < plat2col[3] and plat2col[0] < princol[2] < plat2col[2]:
+                canvasGame.move(principal, 0, -5)
+            #Tercera Plataforma
+            elif plat3col[1] < princol[3] < plat3col[3] and plat3col[0] < princol[0] < plat3col[2] \
+                    and plat3col[0] < princol[2] < plat3col[2]:
+                score += 1
+                scoreShow.configure(text="Your Score: " + str(score))
+                canvasGame.move(principal, 0, -5)
+            elif plat3col[1] < princol[3] < plat3col[3] and plat3col[0] < princol[0] < plat3col[2]:
+                canvasGame.move(principal, 0, -5)
+            elif plat3col[1] < princol[3] < plat3col[3] and plat3col[0] < princol[2] < plat3col[2]:
                 canvasGame.move(principal, 0, -5)
 
 
@@ -210,6 +229,7 @@ def main():
 
 
         #Puntaucion
+        global score
         scoreShow = tk.Label(canvasGame, text= "SCORE:"+str(score), bg= "#072E60", fg= "white")
         scoreShow.place(x = 950, y = 25)
 
