@@ -55,21 +55,38 @@ def main():
     anim.destroy()
     menuwindow = tk.Tk()
     menuwindow.geometry("1080x720")
+    menuwindow.geometry("+250+50")
     menuwindow.title("Monkey: Tears and Blood")
     menuwindow.iconbitmap("Dice-icon.ico")
     menuwindow.resizable(False, False)
     menuwindow.configure(background = "black")
-
-    #Ventana de Juego
-    def game1():
+    def startwindow():
         global score
         global lives
         score = 0
         lives = 3
+        startWin = tk.Tk()
+        startWin.geometry("1080x720")
+        startWin.geometry("+250+50")
+        startWin.title("Are You Ready?")
+        startWin.iconbitmap("Dice-icon.ico")
+        startWin.resizable(False, False)
+        startWin.configure(background="black")
+
+        #Boton
+        botonN1 = tk.Button(startWin, text="Start the Journey", command=game1)
+        botonN1.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+
+        startWin.mainloop()
+    #Ventana de Juego
+    def game1():
+        global score
+        global lives
         if lives >= 1:
             gamewindow = tk.Toplevel()
             gamewindow.title("Prepare to Die")
             gamewindow.geometry("1080x720")
+            gamewindow.geometry("+250+50")
             gamewindow.iconbitmap("Dice-icon.ico")
             gamewindow.resizable(False, False)
             gamewindow.configure(background="black")
@@ -97,10 +114,10 @@ def main():
             monkeyDemon = canvasGame.create_image(10, 150, image=nuevoMonk, anchor=tk.NW)
 
             #Imagen Obstaculo
-            imageObs = Image.open("chi.png")
-            resizedObs = imageDama.resize((75, 75), Image.ANTIALIAS)
-            nuevoObs = ImageTk.PhotoImage(resizedDama, master=canvasGame)
-            #obs = canvasGame.create_image(225, 138, image=nuevoDama, anchor=tk.NW)
+            imageObs = Image.open("obs1.png")
+            resizedObs = imageObs.resize((50, 50), Image.ANTIALIAS)
+            nuevoObs = ImageTk.PhotoImage(resizedObs, master=canvasGame)
+            #obs = canvasGame.create_image(500, 220, image=nuevoObs, anchor=tk.NW)
 
             #Platformas
             imagePlat1 = Image.open("platA.png")
@@ -127,11 +144,46 @@ def main():
             gradaC1 = canvasGame.create_image(250, 200, image= nuevoGradA2, anchor=tk.NW)
 
 
-            #Movimiento
-            def movimiento():
+            # Movimiento Jugador y Barriles
+            class Barrel:
+                def __init__(self, canvas):
+                    self.canvas = canvas
+                    self.obstaculo = canvasGame.create_image(125, 220, image=nuevoObs, anchor=tk.NW)
+                    self.x = 8
+                    self.y = 0
+
+                def movement(self):
+                    barrelx = 8
+                    barrely = 0
+                    canvasGame.move(self.obstaculo, barrelx, barrely)
+                    gamewindow.after(100, self.movement)
+                    gamewindow.after(9500, self.movement2)
+                    gamewindow.after(9500, self.movement3)
+                def movement2(self):
+                    barrelx = 0
+                    barrely = 2
+                    canvasGame.move(self.obstaculo, barrelx, barrely)
+                    gamewindow.after(100, self.movement2)
+                def movement3(self):
+                    barrelx = -0.5
+                    barrely = 0
+                    canvasGame.move(self.obstaculo, barrelx, barrely)
+                    gamewindow.after(100, self.movement3)
+
+
+
+
+            def createBarrel():
+                barrel = Barrel(canvasGame)
+                circle_thread = Thread(target=barrel.movement())
+                circle_thread.daemon = True
+                circle_thread.start()
+
+            def move():
                 def left(event):
                     x = -5
                     y = 0
+                    canvasGame.update()
                     edgeReached()
                     canvasGame.move(principal,x, y)
                     collision()
@@ -139,6 +191,7 @@ def main():
                 def right(event):
                     x = 5
                     y = 0
+                    canvasGame.update()
                     edgeReached()
                     canvasGame.move(principal,x, y)
                     collision()
@@ -174,16 +227,6 @@ def main():
                 canvasGame.bind_all("<Up>", jump)
                 canvasGame.bind_all("<Down>", score)
 
-            movimiento()
-
-            #Generar Barriles
-            class Fire:
-                def __init__(self, canvas):
-                    self.canvas = canvas
-                    self.obstaculo = canvasGame.create_image(125, 500, image=nuevoPrin, anchor=tk.NW)
-
-
-
             #Colisiones
             def collision():
                 princol= canvasGame.bbox(principal)
@@ -215,7 +258,9 @@ def main():
                     scoreShow.configure(text="SCORE: " + str(score))
                     livesShow.configure(text="LIVES: " + str(lives))
                     time.sleep(1.0)
-                    canvasGame.moveto(principal, 125, 600)
+                    gamewindow.destroy()
+                    game1()
+
 
                 # Primera Plataforma
 
@@ -249,6 +294,7 @@ def main():
                 elif princol[1] < plat2col[1] < princol[3] and princol[0] < plat2col[2] < princol[2] and \
                         princol[1] < plat2col[3] < princol[3]: #Colicion con la parte derecha
                     canvasGame.move(principal, 5, 0)
+
                 #Tercera Plataforma
 
                 elif plat3col[1] < princol[3] < plat3col[3] and plat3col[0] < princol[0] < plat3col[2] \
@@ -365,7 +411,6 @@ def main():
                 elif gradaC1col[1] < princol[3] < gradaC1col[3] and gradaC1col[0] < princol[2] < gradaC1col[2]:
                     canvasGame.move(principal, 0, -5)
 
-
             #Pesonaje no se salga de la ventana
             def edgeReached():
                 boundary = canvasGame.bbox(principal)
@@ -381,7 +426,6 @@ def main():
                     canvasGame.move(principal, 0, 10)
                 elif prinbottom > 720:
                     canvasGame.move(principal, 0, -10)
-
 
             #Puntaucion
 
@@ -400,7 +444,11 @@ def main():
             # Nivel
             showLevel = tk.Label(canvasGame, text="LEVEL 1", bg="black", fg="white")
             showLevel.place(x=400, y=25)
+
+            move()
+            createBarrel()
             gamewindow.mainloop()
+
         else:
             endwindow1 = tk.Toplevel()
             endwindow1.title("You Lost!")
@@ -410,7 +458,6 @@ def main():
             endwindow1.configure(background="Yellow")
 
             endwindow1.mainloop()
-
 
     def game2():
         gamewindow2 = tk.Toplevel()
@@ -697,7 +744,7 @@ def main():
         scorewindow.mainloop()
 
     #Botones
-    botonStart=tk.Button(menuwindow, text= "Start the Journey", command=game1)
+    botonStart=tk.Button(menuwindow, text= "Start the Journey", command=startwindow)
     botonStart.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
     botonScore = tk.Button(menuwindow, text="Hall of Death", command=leaderboard)
