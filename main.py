@@ -148,37 +148,71 @@ def main():
             class Barrel:
                 def __init__(self, canvas):
                     self.canvas = canvas
-                    self.obstaculo = canvasGame.create_image(125, 220, image=nuevoObs, anchor=tk.NW)
+                    self.obstaculo = canvasGame.create_image(300, 220, image=nuevoObs, anchor=tk.NW)
                     self.x = 8
                     self.y = 0
 
-                def movement(self):
-                    barrelx = 8
-                    barrely = 0
-                    canvasGame.move(self.obstaculo, barrelx, barrely)
-                    gamewindow.after(100, self.movement)
-                    gamewindow.after(10200, self.movement2)
-                    #gamewindow.after(10200, self.movement3)
-                    #gamewindow.after(11000, self.movement4)
-                def movement2(self):
-                    barrelx = -0.65
-                    barrely = 2
-                    canvasGame.move(self.obstaculo, barrelx, barrely)
-                    gamewindow.after(100, self.movement2)
-                """def movement3(self):
-                    barrelx = -0.5
-                    barrely = 0
-                    canvasGame.move(self.obstaculo, barrelx, barrely)
-                    gamewindow.after(75, self.movement3)
-                def movement4(self):
-                    barrelx = -1.5
-                    barrely = -2.5
-                    canvasGame.move(self.obstaculo, barrelx, barrely)
-                    gamewindow.after(100, self.movement4)"""
+                def movement1(self):
+                    global score
+                    global lives
+                    pos = canvasGame.bbox(self.obstaculo)
+                    enemy = canvasGame.bbox(principal)
+                    if pos[1] < enemy[1] < pos[3] and pos[0] < enemy[0] < pos[2]:
+                        score -= 250
+                        lives -= 1
+                        scoreShow.configure(text="SCORE: " + str(score))
+                        livesShow.configure(text="LIVES: " + str(lives))
+                        time.sleep(1.0)
+                        gamewindow.destroy()
+                        game1()
+                    elif pos[0] <= 980 and pos[1] == 220:
+                        print(pos)
+                        barrelx = 8
+                        barrely = 0
+                        canvasGame.move(self.obstaculo, barrelx, barrely)
+                        gamewindow.update()
+                        gamewindow.after(1, self.hb)
+                        gamewindow.after(100, self.movement1)
+                    elif pos[0] >= 980 and pos[1] <= 420:
+                        print("2" + str(pos))
+                        barrelx = 0
+                        barrely = 8
+                        canvasGame.move(self.obstaculo, barrelx, barrely)
+                        gamewindow.update()
+                        gamewindow.after(1, self.hb)
+                        gamewindow.after(100, self.movement1)
+                    elif pos[0] >= 480 and pos[1] >= 420:
+                        print("3" + str(pos))
+                        barrelx = -8
+                        barrely = 0
+                        canvasGame.move(self.obstaculo, barrelx, barrely)
+                        gamewindow.update()
+                        gamewindow.after(1, self.hb)
+                        gamewindow.after(100, self.movement1)
+                    elif pos[0] <= 480 and pos[1] <= 620:
+                        print("4" + str(pos))
+                        barrelx = 0
+                        barrely = 8
+                        canvasGame.move(self.obstaculo, barrelx, barrely)
+                        gamewindow.update()
+                        gamewindow.after(1, self.hb)
+                        gamewindow.after(100, self.movement1)
+                    elif pos[0] >= -50 and pos[1] >= 620:
+                        print("5" + str(pos))
+                        barrelx = -8
+                        barrely = 0
+                        canvasGame.move(self.obstaculo, barrelx, barrely)
+                        gamewindow.update()
+                        gamewindow.after(1, self.hb)
+                        gamewindow.after(100, self.movement1)
+
+
+
+
 
             def createBarrel():
                 barrel = Barrel(canvasGame)
-                circle_thread = Thread(target=barrel.movement())
+                circle_thread = Thread(target=barrel.movement1())
                 circle_thread.daemon = True
                 circle_thread.start()
 
@@ -199,7 +233,6 @@ def main():
                     edgeReached()
                     canvasGame.move(principal,x, y)
                     collision()
-
 
                 def right(event):
                     x = 10
