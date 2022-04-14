@@ -149,15 +149,13 @@ def main():
                 def __init__(self, canvas):
                     self.canvas = canvas
                     self.obstaculo = canvasGame.create_image(300, 220, image=nuevoObs, anchor=tk.NW)
-                    self.x = 8
-                    self.y = 0
 
                 def movement1(self):
                     global score
                     global lives
                     pos = canvasGame.bbox(self.obstaculo)
                     enemy = canvasGame.bbox(principal)
-                    if pos[1] < enemy[1] < pos[3] and pos[0] < enemy[0] < pos[2]:
+                    if enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[2] < enemy[2]:
                         score -= 250
                         lives -= 1
                         scoreShow.configure(text="SCORE: " + str(score))
@@ -165,50 +163,57 @@ def main():
                         time.sleep(1.0)
                         gamewindow.destroy()
                         game1()
+                    elif enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[0] < enemy[2]:
+                        score -= 250
+                        lives -= 1
+                        scoreShow.configure(text="SCORE: " + str(score))
+                        livesShow.configure(text="LIVES: " + str(lives))
+                        time.sleep(1.0)
+                        gamewindow.destroy()
+                        game1()
+                        canvasGame.move(principal, 0, -5)
+                    elif (enemy[2] - pos[2]) >= 0.00001 and (enemy[2] - pos[2]) <= 15:
+                        score += 15
+                        scoreShow.configure(text="SCORE: " + str(score))
+                        scorePlus.configure(text="Last Score Points Gained: +5 enemy points!",
+                                            bg=random.choice(colorpool))
+                        gamewindow.after(100, self.movement1)
                     elif pos[0] <= 980 and pos[1] == 220:
-                        print(pos)
-                        barrelx = 8
+                        print("P"+str(pos))
+                        print("T"+str(enemy))
+                        barrelx = 10
                         barrely = 0
                         canvasGame.move(self.obstaculo, barrelx, barrely)
                         gamewindow.update()
-                        gamewindow.after(1, self.hb)
                         gamewindow.after(100, self.movement1)
                     elif pos[0] >= 980 and pos[1] <= 420:
-                        print("2" + str(pos))
+                        #print("2" + str(pos))
                         barrelx = 0
-                        barrely = 8
+                        barrely = 10
                         canvasGame.move(self.obstaculo, barrelx, barrely)
                         gamewindow.update()
-                        gamewindow.after(1, self.hb)
                         gamewindow.after(100, self.movement1)
                     elif pos[0] >= 480 and pos[1] >= 420:
-                        print("3" + str(pos))
-                        barrelx = -8
+                        #print("3" + str(pos))
+                        barrelx = -10
                         barrely = 0
                         canvasGame.move(self.obstaculo, barrelx, barrely)
                         gamewindow.update()
-                        gamewindow.after(1, self.hb)
                         gamewindow.after(100, self.movement1)
                     elif pos[0] <= 480 and pos[1] <= 620:
-                        print("4" + str(pos))
+                        #print("4" + str(pos))
                         barrelx = 0
-                        barrely = 8
+                        barrely = 10
                         canvasGame.move(self.obstaculo, barrelx, barrely)
                         gamewindow.update()
-                        gamewindow.after(1, self.hb)
                         gamewindow.after(100, self.movement1)
                     elif pos[0] >= -50 and pos[1] >= 620:
-                        print("5" + str(pos))
-                        barrelx = -8
+                        #print("5" + str(pos))
+                        barrelx = -10
                         barrely = 0
                         canvasGame.move(self.obstaculo, barrelx, barrely)
                         gamewindow.update()
-                        gamewindow.after(1, self.hb)
                         gamewindow.after(100, self.movement1)
-
-
-
-
 
             def createBarrel():
                 barrel = Barrel(canvasGame)
@@ -244,7 +249,8 @@ def main():
 
                 def jump(event):
                     x = 0
-                    y = -75
+                    y = -20
+                    canvasGame.update()
                     edgeReached()
                     canvasGame.move(principal, x, y)
                     collision()
@@ -267,7 +273,6 @@ def main():
                 princol = canvasGame.bbox(principal)
                 damacol = canvasGame.bbox(dama)
                 moncol = canvasGame.bbox(monkeyDemon)
-                #barcol = canvasGame.bbox()
                 plat1col =canvasGame.bbox(plat1)
                 plat2col = canvasGame.bbox(plat2)
                 plat3col = canvasGame.bbox(plat3)
@@ -327,11 +332,11 @@ def main():
                     canvasGame.move(principal, 0, -5)
                 elif plat2col[1] < princol[1] < plat2col[3] and plat2col[0] < princol[0] < plat2col[2] \
                         and plat2col[0] < princol[2] < plat2col[2]:
-                    canvasGame.move(principal, 0, 75)
+                    canvasGame.move(principal, 0, 20)
                 elif plat2col[1] < princol[1] < plat2col[3] and plat2col[0] < princol[0] < plat2col[2]:
-                    canvasGame.move(principal, 0, 75)
+                    canvasGame.move(principal, 0, 20)
                 elif plat2col[1] < princol[1] < plat2col[3] and plat2col[0] < princol[2] < plat2col[2]:
-                    canvasGame.move(principal, 0, 75)
+                    canvasGame.move(principal, 0, 20)
                 elif princol[1] < plat2col[1] < princol[3] and princol[0] < plat2col[2] < princol[2] and \
                         princol[1] < plat2col[3] < princol[3]: #Colicion con la parte derecha
                     canvasGame.move(principal, 10, 0)
@@ -350,11 +355,11 @@ def main():
                     canvasGame.move(principal, 0, -5)
                 elif plat3col[1] < princol[1] < plat3col[3] and plat3col[0] < princol[0] < plat3col[2] \
                         and plat3col[0] < princol[2] < plat3col[2]:
-                    canvasGame.move(principal, 0, 75)
+                    canvasGame.move(principal, 0, 20)
                 elif plat3col[1] < princol[1] < plat3col[3] and plat3col[0] < princol[0] < plat3col[2]:
-                    canvasGame.move(principal, 0, 75)
+                    canvasGame.move(principal, 0, 20)
                 elif plat3col[1] < princol[1] < plat3col[3] and plat3col[0] < princol[2] < plat3col[2]:
-                    canvasGame.move(principal, 0, 75)
+                    canvasGame.move(principal, 0, 20)
                 elif princol[1] < plat3col[1] < princol[3] and princol[0] < plat3col[0] < princol[2] and \
                         princol[1] < plat3col[3] < princol[3]:  # Colicion con la parte izquierda
                     canvasGame.move(principal, -10, 0)
@@ -373,11 +378,11 @@ def main():
                     canvasGame.move(principal, 0, -5)
                 elif plat4col[1] < princol[1] < plat4col[3] and plat4col[0] < princol[0] < plat4col[2] \
                         and plat4col[0] < princol[2] < plat4col[2]:
-                    canvasGame.move(principal, 0, 75)
+                    canvasGame.move(principal, 0, 20)
                 elif plat4col[1] < princol[1] < plat4col[3] and plat4col[0] < princol[0] < plat4col[2]:
-                    canvasGame.move(principal, 0, 75)
+                    canvasGame.move(principal, 0, 20)
                 elif plat4col[1] < princol[1] < plat4col[3] and plat4col[0] < princol[2] < plat4col[2]:
-                    canvasGame.move(principal, 0, 75)
+                    canvasGame.move(principal, 0, 20)
                 elif princol[1] < plat4col[1] < princol[3] and princol[0] < plat4col[2] < princol[2] and \
                         princol[1] < plat4col[3] < princol[3]:
                     canvasGame.move(principal, 10, 0)
@@ -464,9 +469,9 @@ def main():
                 elif prinright > 1080:
                     canvasGame.move(principal, -10, 0)
                 elif printop < 0:
-                    canvasGame.move(principal, 0, 10)
+                    canvasGame.move(principal, 0, 20)
                 elif prinbottom > 720:
-                    canvasGame.move(principal, 0, -10)
+                    canvasGame.move(principal, 0, -20)
 
             #Puntaucion
 
