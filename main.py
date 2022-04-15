@@ -1,6 +1,7 @@
 #Librerias
 import tkinter as tk
 from PIL import ImageTk, Image
+import shelve
 import pygame
 import random
 import time
@@ -585,7 +586,26 @@ def main():
             endwindow1.geometry("1080x720")
             endwindow1.iconbitmap("Dice-icon.ico")
             endwindow1.resizable(False, False)
-            endwindow1.configure(background="Yellow")
+            endwindow1.configure(background="green")
+
+            # Entry de Jugador
+            entryName = tk.Entry(endwindow1)
+            entryName.place(x=475, y=305)
+
+            #def savedata():
+
+
+            #Puntuacion Final
+            scoreShow = tk.Label(endwindow1, text="Final Score: ", font=("Arial", "30"), bg="black", fg="white")
+            scoreShow.place(x=350, y=150)
+
+            #Titulo
+            label1 = tk.Label(endwindow1, text="Enter Your Name: ", font=("Arial", 15), bg="black", fg="white")
+            label1.place(x=300, y=300)
+
+            #Boton
+            botonSave = tk.Button(endwindow1, text="Save Your Stats!")
+            botonSave.place(x=675, y=315, anchor=tk.CENTER)
 
             endwindow1.mainloop()
 
@@ -608,29 +628,29 @@ def main():
 
             # Imagen1/Personaje Principal
             imagePrin = Image.open("toto.png")
-            resizedPrin = imagePrin.resize((50, 75), Image.ANTIALIAS)
+            resizedPrin = imagePrin.resize((40, 65), Image.ANTIALIAS)
             nuevoPrin = ImageTk.PhotoImage(resizedPrin, master=canvasGame)
             principal = canvasGame.create_image(125, 600, image=nuevoPrin, anchor=tk.NW)
 
             # Imagen "Dama"
             imageDama = Image.open("chi.png")
-            resizedDama = imageDama.resize((75, 75), Image.ANTIALIAS)
+            resizedDama = imageDama.resize((50, 50), Image.ANTIALIAS)
             nuevoDama = ImageTk.PhotoImage(resizedDama, master=canvasGame)
             dama = canvasGame.create_image(225, 138, image=nuevoDama, anchor=tk.NW)
 
             # Imagen MonoMalo
             imageMonk = Image.open("demonmonkey.png")
-            resizedMonk = imageMonk.resize((125, 125), Image.ANTIALIAS)
+            resizedMonk = imageMonk.resize((100, 100), Image.ANTIALIAS)
             nuevoMonk = ImageTk.PhotoImage(resizedMonk, master=canvasGame)
             monkeyDemon = canvasGame.create_image(10, 150, image=nuevoMonk, anchor=tk.NW)
 
             # Imagen Obstaculo
             imageObs = Image.open("obs1.png")
-            resizedObs = imageObs.resize((50, 50), Image.ANTIALIAS)
+            resizedObs = imageObs.resize((40, 40), Image.ANTIALIAS)
             nuevoObs = ImageTk.PhotoImage(resizedObs, master=canvasGame)
             # obs = canvasGame.create_image(500, 220, image=nuevoObs, anchor=tk.NW)
             imageFlame = Image.open("fuego.jpg")
-            resizedFlame = imageFlame.resize((50, 50), Image.ANTIALIAS)
+            resizedFlame = imageFlame.resize((40, 40), Image.ANTIALIAS)
             nuevoFlame = ImageTk.PhotoImage(resizedFlame, master=canvasGame)
 
             # Platformas
@@ -745,7 +765,7 @@ def main():
                         livesShow.configure(text="LIVES: " + str(lives))
                         time.sleep(1.0)
                         gamewindow2.destroy()
-                        game1()
+                        game2()
                     elif enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[0] < enemy[2]:
                         score -= 250
                         lives -= 1
@@ -885,7 +905,7 @@ def main():
                     scoreShow.configure(text="SCORE: " + str(score))
                     time.sleep(1.0)
                     gamewindow2.destroy()
-                    game2()
+                    congrats()
 
                 # Mono
 
@@ -1099,7 +1119,7 @@ def main():
 
     def congrats():
         congrats = tk.Toplevel()
-        congrats.title("Hall of Death")
+        congrats.title("Congrats!")
         congrats.geometry("1080x720")
         congrats.iconbitmap("Dice-icon.ico")
         congrats.resizable(False, False)
