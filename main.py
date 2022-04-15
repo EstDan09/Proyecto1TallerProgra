@@ -644,7 +644,7 @@ def main():
             nuevoMonk = ImageTk.PhotoImage(resizedMonk, master=canvasGame)
             monkeyDemon = canvasGame.create_image(10, 150, image=nuevoMonk, anchor=tk.NW)
 
-            # Imagen Obstaculo
+            #ImagenObstaculo
             imageObs = Image.open("obs1.png")
             resizedObs = imageObs.resize((40, 40), Image.ANTIALIAS)
             nuevoObs = ImageTk.PhotoImage(resizedObs, master=canvasGame)
@@ -653,7 +653,7 @@ def main():
             resizedFlame = imageFlame.resize((40, 40), Image.ANTIALIAS)
             nuevoFlame = ImageTk.PhotoImage(resizedFlame, master=canvasGame)
 
-            # Platformas
+            #Platformas
             imagePlat1 = Image.open("platA.png")
             resizedPlat1 = imagePlat1.resize((1080, 50), Image.ANTIALIAS)
             nuevoPlat1 = ImageTk.PhotoImage(resizedPlat1, master=canvasGame)
