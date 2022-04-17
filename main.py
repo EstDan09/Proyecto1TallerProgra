@@ -815,7 +815,7 @@ def main():
                         gamewindow2.update()
                         gamewindow2.after(100, self.movement1)
                     elif pos[0] >= -50 and pos[1] >= 625:
-                        print("7" + str(pos))
+                        #print("7" + str(pos))
                         barrelx = -20
                         barrely = 0
                         canvasGame.move(self.obstaculo, barrelx, barrely)
