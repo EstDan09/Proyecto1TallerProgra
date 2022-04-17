@@ -128,11 +128,10 @@ def main():
 
             #Imagen Obstaculo
             imageObs = Image.open("obs1.png")
-            resizedObs = imageObs.resize((50, 50), Image.ANTIALIAS)
+            resizedObs = imageObs.resize((38, 38), Image.ANTIALIAS)
             nuevoObs = ImageTk.PhotoImage(resizedObs, master=canvasGame)
-            #obs = canvasGame.create_image(500, 220, image=nuevoObs, anchor=tk.NW)
             imageFlame = Image.open("fuego.jpg")
-            resizedFlame = imageFlame.resize((50, 50), Image.ANTIALIAS)
+            resizedFlame = imageFlame.resize((38, 38), Image.ANTIALIAS)
             nuevoFlame = ImageTk.PhotoImage(resizedFlame, master=canvasGame)
 
             #Platformas
@@ -164,7 +163,7 @@ def main():
             class Barrel:
                 def __init__(self, canvas):
                     self.canvas = canvas
-                    self.obstaculo = canvasGame.create_image(300, 220, image=nuevoObs, anchor=tk.NW)
+                    self.obstaculo = canvasGame.create_image(300, 238, image=nuevoObs, anchor=tk.NW)
 
                 def movement1(self):
                     global score
@@ -194,7 +193,7 @@ def main():
                         scorePlus.configure(text="Last Score Points Gained: +5 enemy points!",
                                             bg=random.choice(colorpool))
                         gamewindow.after(100, self.movement1)
-                    elif pos[0] <= 980 and pos[1] == 220:
+                    elif pos[0] <= 980 and pos[1] == 238:
                         #print("P"+str(pos))
                         #print("T"+str(enemy))
                         barrelx = 20
@@ -234,7 +233,7 @@ def main():
             class Flame:
                 def __init__(self, canvas):
                     self.canvas = canvas
-                    self.flame = canvasGame.create_image(300, 220, image=nuevoFlame, anchor=tk.NW)
+                    self.flame = canvasGame.create_image(300, 238, image=nuevoFlame, anchor=tk.NW)
 
                 def movement1(self):
                     global score
@@ -264,7 +263,7 @@ def main():
                         scorePlus.configure(text="Last Score Points Gained: +5 enemy points!",
                                             bg=random.choice(colorpool))
                         gamewindow.after(100, self.movement1)
-                    elif pos[0] <= 980 and pos[1] == 220:
+                    elif pos[0] <= 980 and pos[1] == 238:
                         #print("P"+str(pos))
                         #print("T"+str(enemy))
                         barrelx = 20
@@ -1320,13 +1319,14 @@ def main():
             endwindow2.configure(background="green")
 
             # Entry de Jugador
-            entryName = tk.Entry(endwindow1)
+            entryName = tk.Entry(endwindow2)
             entryName.place(x=475, y=305)
 
             # def savedata():
 
             # Puntuacion Final
-            scoreShow = tk.Label(endwindow2, text="Final Score: ", font=("Arial", "30"), bg="black", fg="white")
+            scoreShow = tk.Label(endwindow2, text="Final Score: " + str(score), font=("Arial", "30"), bg="black",
+                                 fg="white")
             scoreShow.place(x=350, y=150)
 
             # Titulo
