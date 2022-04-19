@@ -79,7 +79,7 @@ def main():
         lives = 3
         playSound1()
         startWin = tk.Tk()
-        startWin.geometry("1080x720")
+        startWin.geometry("400x400")
         startWin.geometry("+250+50")
         startWin.title("Are You Ready?")
         startWin.iconbitmap("Dice-icon.ico")
@@ -1354,6 +1354,8 @@ def main():
 
     def congrats():
         global score
+        global lives
+        lives = 3
         congrats = tk.Toplevel()
         congrats.title("Congrats!")
         congrats.geometry("1080x720")
