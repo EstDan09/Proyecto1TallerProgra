@@ -186,7 +186,7 @@ def main():
                         time.sleep(1.0)
                         gamewindow.destroy()
                         game1()
-                        canvasGame.move(principal, 0, -5)
+                        canvasGame.move(principal, 0, -5) #ojo esto
                     elif ((enemy[2] - pos[2]) >= 0.00001 and (enemy[2] - pos[2]) <= 15) and ((enemy[3] - pos[3]) >= 0.00001 and (enemy[3] - pos[3]) <= 15):
                         score += 15
                         scoreShow.configure(text="SCORE: " + str(score))
@@ -629,6 +629,7 @@ def main():
             gamewindow.mainloop()
 
         else:
+            lives = 3
             endwindow1 = tk.Toplevel()
             endwindow1.title("You Lost!")
             endwindow1.geometry("1080x720")
@@ -640,8 +641,13 @@ def main():
             entryName = tk.Entry(endwindow1)
             entryName.place(x=475, y=305)
 
-            #def savedata():
-
+            def savedata():
+                global score
+                scores = open("scores.txt", "a")
+                scores.write(str(score)+" - "+str(entryName.get())+"\n")
+                scores.close()
+                endwindow1.destroy()
+                score = 0
 
             #Puntuacion Final
             scoreShow = tk.Label(endwindow1, text="Final Score: "+ str(score), font=("Arial", "30"), bg="black", fg="white")
@@ -652,7 +658,7 @@ def main():
             label1.place(x=300, y=300)
 
             #Boton
-            botonSave = tk.Button(endwindow1, text="Save Your Stats!")
+            botonSave = tk.Button(endwindow1, text="Save Your Stats!", command=savedata)
             botonSave.place(x=675, y=315, anchor=tk.CENTER)
 
             endwindow1.mainloop()
@@ -1311,6 +1317,7 @@ def main():
             gamewindow2.mainloop()
 
         else:
+            lives = 3
             endwindow2 = tk.Toplevel()
             endwindow2.title("You Lost!")
             endwindow2.geometry("1080x720")
@@ -1322,7 +1329,13 @@ def main():
             entryName = tk.Entry(endwindow2)
             entryName.place(x=475, y=305)
 
-            # def savedata():
+            def savedata():
+                global score
+                scores = open("scores.txt", "a")
+                scores.write(str(score) + " - " + str(entryName.get()) + "\n")
+                scores.close()
+                endwindow2.destroy()
+                score = 0
 
             # Puntuacion Final
             scoreShow = tk.Label(endwindow2, text="Final Score: " + str(score), font=("Arial", "30"), bg="black",
@@ -1334,18 +1347,44 @@ def main():
             label1.place(x=300, y=300)
 
             # Boton
-            botonSave = tk.Button(endwindow2, text="Save Your Stats!")
+            botonSave = tk.Button(endwindow2, text="Save Your Stats!", command=savedata)
             botonSave.place(x=675, y=315, anchor=tk.CENTER)
 
             endwindow2.mainloop()
 
     def congrats():
+        global score
         congrats = tk.Toplevel()
         congrats.title("Congrats!")
         congrats.geometry("1080x720")
         congrats.iconbitmap("Dice-icon.ico")
         congrats.resizable(False, False)
         congrats.configure(background="black")
+
+        # Entry de Jugador
+        entryName = tk.Entry(congrats)
+        entryName.place(x=475, y=305)
+
+        def savedata():
+            global score
+            scores = open("scores.txt", "a")
+            scores.write(str(score) + " - " + str(entryName.get()) + "\n")
+            scores.close()
+            congrats.destroy()
+            score = 0
+
+        # Puntuacion Final
+        scoreShow = tk.Label(congrats, text="Final Score: " + str(score), font=("Arial", "30"), bg="black",
+                             fg="white")
+        scoreShow.place(x=350, y=150)
+
+        # Titulo
+        label1 = tk.Label(congrats, text="Enter Your Name: ", font=("Arial", 15), bg="black", fg="white")
+        label1.place(x=300, y=300)
+
+        # Boton
+        botonSave = tk.Button(congrats, text="Save Your Stats!", command=savedata)
+        botonSave.place(x=675, y=315, anchor=tk.CENTER)
 
         congrats.mainloop()
 
@@ -1356,6 +1395,19 @@ def main():
         scorewindow.iconbitmap("Dice-icon.ico")
         scorewindow.resizable(False, False)
         scorewindow.configure(background="blue")
+
+        show=open("scores.txt", "r")
+        read=show.readlines()
+        top=sorted(read,reverse=True)
+        print(top)
+
+
+        label1 = tk.Label(scorewindow, text=str(top[0]), font=("Arial", 15), bg="black", fg="white")
+        label1.place(x=300, y=300)
+        label2 = tk.Label(scorewindow, text=str(top[1]), font=("Arial", 15), bg="black", fg="white")
+        label2.place(x=300, y=350)
+        label3 = tk.Label(scorewindow, text=str(top[2]), font=("Arial", 15), bg="black", fg="white")
+        label3.place(x=300, y=400)
 
         scorewindow.mainloop()
 
