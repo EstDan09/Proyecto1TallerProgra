@@ -63,7 +63,7 @@ def main():
     menuwindow = tk.Tk()
     menuwindow.geometry("1080x720")
     menuwindow.geometry("+250+50")
-    menuwindow.title("Monkey: Tears and Blood")
+    menuwindow.title("Monkey: The Last Dream")
     menuwindow.iconbitmap("Dice-icon.ico")
     menuwindow.resizable(False, False)
     menuwindow.configure(background = "black")
@@ -82,7 +82,7 @@ def main():
         startWin = tk.Tk()
         startWin.geometry("600x600")
         startWin.geometry("+475+100")
-        startWin.title("Are You Ready?")
+        startWin.title("Prepare to Dream")
         startWin.iconbitmap("Dice-icon.ico")
         startWin.resizable(False, False)
         startWin.configure(background="black")
@@ -118,7 +118,7 @@ def main():
         if lives >= 1:
             playSound1()
             gamewindow = tk.Toplevel()
-            gamewindow.title("Prepare to Die")
+            gamewindow.title("First Dream")
             gamewindow.geometry("1080x720")
             gamewindow.geometry("+250+50")
             gamewindow.iconbitmap("Dice-icon.ico")
@@ -659,8 +659,18 @@ def main():
             endwindow1.resizable(False, False)
             endwindow1.configure(background="black")
 
+            # Canvas
+            canvasL1 = tk.Canvas(endwindow1, width=1080, height=720, borderwidth=0, highlightthickness=0, bg="black")
+            canvasL1.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+
+            #Imagen
+            jordan = Image.open("jordan.jpg")
+            jordanres = jordan.resize((1080, 720), Image.ANTIALIAS)
+            jordanw = ImageTk.PhotoImage(jordanres, master=canvasMenu)
+            jordanlisto = canvasL1.create_image(0, 0, image=jordanw, anchor=tk.NW)
+
             # Entry de Jugador
-            entryName = tk.Entry(endwindow1)
+            entryName = tk.Entry(canvasL1)
             entryName.place(x=475, y=305)
 
             def savedata():
@@ -672,15 +682,15 @@ def main():
                 score = 0
 
             #Puntuacion Final
-            scoreShow = tk.Label(endwindow1, text="Final Score: "+ str(score), font=("Arial", "30"), bg="black", fg="white")
+            scoreShow = tk.Label(canvasL1, text="Final Score: "+ str(score), font=("Arial", "30"), bg="black", fg="white")
             scoreShow.place(x=350, y=150)
 
             #Titulo
-            label1 = tk.Label(endwindow1, text="Enter Your Name: ", font=("Arial", 15), bg="black", fg="white")
+            label1 = tk.Label(canvasL1, text="Enter Your Name: ", font=("Arial", 15), bg="black", fg="white")
             label1.place(x=300, y=300)
 
             #Boton
-            botonSave = tk.Button(endwindow1, text="Save Your Stats!", command=savedata)
+            botonSave = tk.Button(canvasL1, text="Save Your Stats!", command=savedata)
             botonSave.place(x=675, y=315, anchor=tk.CENTER)
 
             endwindow1.mainloop()
@@ -691,7 +701,7 @@ def main():
         if lives >= 1:
             playSound1()
             gamewindow2 = tk.Tk()
-            gamewindow2.title("Prepare to Die")
+            gamewindow2.title("Second Dream")
             gamewindow2.geometry("1080x720")
             gamewindow2.geometry("+250+50")
             gamewindow2.iconbitmap("Dice-icon.ico")
@@ -1347,10 +1357,20 @@ def main():
             endwindow2.geometry("1080x720")
             endwindow2.iconbitmap("Dice-icon.ico")
             endwindow2.resizable(False, False)
-            endwindow2.configure(background="green")
+            endwindow2.configure(background="black")
+
+            # Canvas
+            canvasL2 = tk.Canvas(endwindow2, width=1080, height=720, borderwidth=0, highlightthickness=0, bg="black")
+            canvasL2.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+
+            # Imagen
+            jordan = Image.open("jordan.jpg")
+            jordanres = jordan.resize((1080, 720), Image.ANTIALIAS)
+            jordanw = ImageTk.PhotoImage(jordanres, master=canvasL2)
+            jordanlisto = canvasL2.create_image(0, 0, image=jordanw, anchor=tk.NW)
 
             # Entry de Jugador
-            entryName = tk.Entry(endwindow2)
+            entryName = tk.Entry(canvasL2)
             entryName.place(x=475, y=305)
 
             def savedata():
@@ -1362,16 +1382,16 @@ def main():
                 score = 0
 
             # Puntuacion Final
-            scoreShow = tk.Label(endwindow2, text="Final Score: " + str(score), font=("Arial", "30"), bg="black",
+            scoreShow = tk.Label(canvasL2, text="Final Score: " + str(score), font=("Arial", "30"), bg="black",
                                  fg="white")
             scoreShow.place(x=350, y=150)
 
             # Titulo
-            label1 = tk.Label(endwindow2, text="Enter Your Name: ", font=("Arial", 15), bg="black", fg="white")
+            label1 = tk.Label(canvasL2, text="Enter Your Name: ", font=("Arial", 15), bg="black", fg="white")
             label1.place(x=300, y=300)
 
             # Boton
-            botonSave = tk.Button(endwindow2, text="Save Your Stats!", command=savedata)
+            botonSave = tk.Button(canvasL2, text="Save Your Stats!", command=savedata)
             botonSave.place(x=675, y=315, anchor=tk.CENTER)
 
             endwindow2.mainloop()
@@ -1388,8 +1408,12 @@ def main():
         congrats.resizable(False, False)
         congrats.configure(background="black")
 
+        #Canvas
+        canvasEnd = tk.Canvas(congrats, width=1080, height=720, borderwidth=0, highlightthickness=0, bg="black")
+        canvasEnd.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+
         # Entry de Jugador
-        entryName = tk.Entry(congrats)
+        entryName = tk.Entry(canvasEnd)
         entryName.place(x=475, y=305)
 
         def savedata():
@@ -1401,16 +1425,24 @@ def main():
             score = 0
 
         # Puntuacion Final
-        scoreShow = tk.Label(congrats, text="Final Score: " + str(score), font=("Arial", "30"), bg="black",
+        scoreShow = tk.Label(canvasEnd, text="Final Score: " + str(score), font=("Arial", "30"), bg="black",
                              fg="white")
         scoreShow.place(x=350, y=150)
 
         # Titulo
-        label1 = tk.Label(congrats, text="Enter Your Name: ", font=("Arial", 15), bg="black", fg="white")
+        label1 = tk.Label(canvasEnd, text="Enter Your Name: ", font=("Arial", 15), bg="black", fg="white")
         label1.place(x=300, y=300)
+        labelA = tk.Label(canvasEnd, text="YOU MADE IT! THAT'S SO AMAZING!", font=("Arial", 25), bg="black", fg="white")
+        labelA.place(x=250, y=100)
+
+        #Imagen
+        image = Image.open("jake.png")
+        resized = image.resize((256, 256), Image.ANTIALIAS)
+        nuevo = ImageTk.PhotoImage(resized, master=canvasEnd)
+        produ = canvasEnd.create_image(100, 400, image=nuevo, anchor=tk.NW)
 
         # Boton
-        botonSave = tk.Button(congrats, text="Save Your Stats!", command=savedata)
+        botonSave = tk.Button(canvasEnd, text="Save Your Stats!", command=savedata)
         botonSave.place(x=675, y=315, anchor=tk.CENTER)
 
         congrats.mainloop()
