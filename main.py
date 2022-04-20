@@ -34,7 +34,7 @@ titulo1.pack(pady=20)
 titulo2 = tk.Label(anim, text= "...can you KILL him...he is no longer a monkey, for he is the DEMON MONKEY!",
                    font= "Papyrus", bg= "black", fg= "white")
 titulo2.pack(pady=25)
-titulo3 = tk.Label(anim, text= "Monkey: Tears and Blood", font= ("Papyrus", 40), bg= "black", fg= "white")
+titulo3 = tk.Label(anim, text= "Monkey: The Last Dream", font= ("Papyrus", 40), bg= "black", fg= "white")
 titulo3.pack(pady=40)
 titulo4 = tk.Label(anim, text= "Developed by Esteban Secaida", font= ("Papyrus", 40), bg= "black", fg= "white")
 titulo4.pack(pady=50)
@@ -67,9 +67,11 @@ def main():
     menuwindow.iconbitmap("Dice-icon.ico")
     menuwindow.resizable(False, False)
     menuwindow.configure(background = "black")
+
     def playSound1():
         pygame.init()
         pygame.mixer.music.load("soundtrack.mp3")
+        pygame.mixer.music.play(loops=3)
         pygame.mixer.music.play()
 
     def startwindow():
@@ -77,17 +79,35 @@ def main():
         global lives
         score = 0
         lives = 3
-        playSound1()
         startWin = tk.Tk()
-        startWin.geometry("400x400")
-        startWin.geometry("+250+50")
+        startWin.geometry("600x600")
+        startWin.geometry("+475+100")
         startWin.title("Are You Ready?")
         startWin.iconbitmap("Dice-icon.ico")
         startWin.resizable(False, False)
         startWin.configure(background="black")
 
+        #Canvas
+        canvasPepe = tk.Canvas(startWin, width=600, height=600, borderwidth=0, highlightthickness=0, bg="black")
+        canvasPepe.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+
+        def runCreepy():
+            image = Image.open("pepemujica.png")
+            resized = image.resize((600, 600), Image.ANTIALIAS)
+            nuevo = ImageTk.PhotoImage(resized, master=canvasPepe)
+            produ = canvasPepe.create_image(0, 0, image=nuevo, anchor=tk.NW)
+            startWin.update()
+            time.sleep(0.5)
+            startWin.after(500, runCreepy)
+
+        runCreepy()
+
+        def nextStep():
+            startWin.destroy()
+            game1()
+
         #Boton
-        botonN1 = tk.Button(startWin, text="Start the Journey", command=game1)
+        botonN1 = tk.Button(startWin, text="Enter the Realm of the Monkey!!!!!", command=nextStep)
         botonN1.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
         startWin.mainloop()
@@ -96,6 +116,7 @@ def main():
         global score
         global lives
         if lives >= 1:
+            playSound1()
             gamewindow = tk.Toplevel()
             gamewindow.title("Prepare to Die")
             gamewindow.geometry("1080x720")
@@ -629,13 +650,14 @@ def main():
             gamewindow.mainloop()
 
         else:
+            playSound1()
             lives = 3
             endwindow1 = tk.Toplevel()
             endwindow1.title("You Lost!")
             endwindow1.geometry("1080x720")
             endwindow1.iconbitmap("Dice-icon.ico")
             endwindow1.resizable(False, False)
-            endwindow1.configure(background="green")
+            endwindow1.configure(background="black")
 
             # Entry de Jugador
             entryName = tk.Entry(endwindow1)
@@ -667,6 +689,7 @@ def main():
         global score
         global lives
         if lives >= 1:
+            playSound1()
             gamewindow2 = tk.Tk()
             gamewindow2.title("Prepare to Die")
             gamewindow2.geometry("1080x720")
@@ -1317,6 +1340,7 @@ def main():
             gamewindow2.mainloop()
 
         else:
+            playSound1()
             lives = 3
             endwindow2 = tk.Toplevel()
             endwindow2.title("You Lost!")
@@ -1353,6 +1377,7 @@ def main():
             endwindow2.mainloop()
 
     def congrats():
+        playSound1()
         global score
         global lives
         lives = 3
@@ -1391,36 +1416,57 @@ def main():
         congrats.mainloop()
 
     def leaderboard():
+        playSound1()
         scorewindow = tk.Toplevel()
         scorewindow.title("Hall of Death")
         scorewindow.geometry("1080x720")
         scorewindow.iconbitmap("Dice-icon.ico")
         scorewindow.resizable(False, False)
-        scorewindow.configure(background="blue")
+        scorewindow.configure(background="black")
 
         show=open("scores.txt", "r")
         read=show.readlines()
         top=sorted(read,reverse=True)
         print(top)
 
-
+        label0 = tk.Label(scorewindow, text="TOP 3 CHALLENGERS", font=("Arial", 15), bg="black", fg="white")
+        label0.place(x=450, y=100)
         label1 = tk.Label(scorewindow, text=str(top[0]), font=("Arial", 15), bg="black", fg="white")
-        label1.place(x=300, y=300)
+        label1.place(x=450, y=300)
+        labelA = tk.Label(scorewindow, text="1.", font=("Arial", 15), bg="black", fg="white")
+        labelA.place(x=425, y=300)
         label2 = tk.Label(scorewindow, text=str(top[1]), font=("Arial", 15), bg="black", fg="white")
-        label2.place(x=300, y=350)
+        label2.place(x=450, y=350)
+        labelB = tk.Label(scorewindow, text="2.", font=("Arial", 15), bg="black", fg="white")
+        labelB.place(x=425, y=350)
         label3 = tk.Label(scorewindow, text=str(top[2]), font=("Arial", 15), bg="black", fg="white")
-        label3.place(x=300, y=400)
+        label3.place(x=450, y=400)
+        labelC = tk.Label(scorewindow, text="3.", font=("Arial", 15), bg="black", fg="white")
+        labelC.place(x=425, y=400)
 
         scorewindow.mainloop()
 
+    #Canvas
+    canvasMenu = tk.Canvas(menuwindow, width=1080, height=720, borderwidth=0, highlightthickness=0, bg="black")
+    canvasMenu.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+
     #Botones
-    botonStart=tk.Button(menuwindow, text= "Start the Journey", command=startwindow)
+    botonStart=tk.Button(canvasMenu, text= "Start the Journey", command=startwindow)
     botonStart.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
-    botonScore = tk.Button(menuwindow, text="Hall of Death", command=leaderboard)
+    botonScore = tk.Button(canvasMenu, text="Hall of Death", command=leaderboard)
     botonScore.place(relx=0.5, rely=0.6, anchor=tk.CENTER)
 
-    #Titulos
+    #Imagenes
+    imageTotoro = Image.open("totomenu.jpg")
+    resizedTotoro = imageTotoro.resize((400, 800), Image.ANTIALIAS)
+    nuevoTotoro = ImageTk.PhotoImage(resizedTotoro, master=canvasMenu)
+    totoro = canvasMenu.create_image(675, 50, image=nuevoTotoro, anchor=tk.NW)
+
+    imageTitulo = Image.open("Monkey.png")
+    resizedTitulo = imageTitulo.resize((916, 219), Image.ANTIALIAS)
+    nuevoTitulo = ImageTk.PhotoImage(resizedTitulo, master=canvasMenu)
+    titulo = canvasMenu.create_image(75, 50, image=nuevoTitulo, anchor=tk.NW)
 
     menuwindow.mainloop()
 
