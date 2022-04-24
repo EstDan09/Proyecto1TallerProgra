@@ -1,3 +1,9 @@
+"""
+Proyecto Programado 1 - Esteban Secaida
+Monkey: The Last Dream
+
+"""
+
 #Librerias
 import tkinter as tk
 from PIL import ImageTk, Image
@@ -6,6 +12,7 @@ import pygame
 import random
 import time
 from threading import Thread
+from natsort import natsorted
 
 #Colores
 color1 = "blue"
@@ -14,15 +21,34 @@ color3 = "gray"
 color4 = "purple"
 color5 = "brown"
 colorpool = [color5, color4, color3, color2, color1]
+
 #Puntuacion
 global score
 score = 0
+#Vidas
 global lives
 lives = 3
+#Variable que me ayuda a no hacer doble saltos
 global jumposky
 jumposky = 0
+global udosuno
+udosuno = 0
+global udosdos
+udosdos = 0
+global utres
+utres = 0
+global duno
+duno = 0
+global ddos
+ddos = 0
+global dtres
+dtres = 0
+global dcuatro
+dcuatro = 0
+global dcinco
+dcinco = 0
 
-#SplashAnimation (Se usaron las idead presentadas por Codemy.com, de generar el splash por medio de una ventana)
+#SplashAnimation (Se usaron las ideas presentadas por Codemy.com, de generar el splash por medio de una ventana)
 anim = tk.Tk()
 anim.geometry("1080x720")
 anim.geometry("+250+50")
@@ -68,12 +94,14 @@ def main():
     menuwindow.resizable(False, False)
     menuwindow.configure(background = "black")
 
+    #Función para la musica de mi juego
     def playSound1():
         pygame.init()
         pygame.mixer.music.load("soundtrack.mp3")
         pygame.mixer.music.play(loops=3)
         pygame.mixer.music.play()
 
+    #Ventana de Validación antes de entrar al nivel
     def startwindow():
         global score
         global lives
@@ -111,10 +139,12 @@ def main():
         botonN1.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
         startWin.mainloop()
-    #Ventana de Juego
+
+    #Ventana para manejar el nivel 1
     def game1():
         global score
         global lives
+        #Entrar al nivel 1 si cumple el requisito de vidas
         if lives >= 1:
             playSound1()
             gamewindow = tk.Toplevel()
@@ -181,6 +211,8 @@ def main():
 
 
             # Movimiento Jugador y Barriles
+
+            #Comportamiento y parametros de los barriles
             class Barrel:
                 def __init__(self, canvas):
                     self.canvas = canvas
@@ -192,7 +224,7 @@ def main():
                     pos = canvasGame.bbox(self.obstaculo)
                     enemy = canvasGame.bbox(principal)
                     if enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[2] < enemy[2]:
-                        score -= 250
+                        score -= 10
                         lives -= 1
                         scoreShow.configure(text="SCORE: " + str(score))
                         livesShow.configure(text="LIVES: " + str(lives))
@@ -200,7 +232,7 @@ def main():
                         gamewindow.destroy()
                         game1()
                     elif enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[0] < enemy[2]:
-                        score -= 250
+                        score -= 10
                         lives -= 1
                         scoreShow.configure(text="SCORE: " + str(score))
                         livesShow.configure(text="LIVES: " + str(lives))
@@ -208,10 +240,12 @@ def main():
                         gamewindow.destroy()
                         game1()
                         canvasGame.move(principal, 0, -5) #ojo esto
-                    elif ((enemy[2] - pos[2]) >= 0.00001 and (enemy[2] - pos[2]) <= 15) and ((enemy[3] - pos[3]) >= 0.00001 and (enemy[3] - pos[3]) <= 15):
-                        score += 15
+                    elif ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 15) and \
+                            ((abs(pos[0] - enemy[0]) > 1 and abs(pos[0] - enemy[0]) < 10) or
+                             (abs(pos[2] - enemy[2]) > 1 and abs(pos[2] - enemy[2]) < 10)):
+                        score += 100
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: +5 enemy points!",
+                        scorePlus.configure(text="Last Score Points Gained: +100 enemy points!",
                                             bg=random.choice(colorpool))
                         gamewindow.after(100, self.movement1)
                     elif pos[0] <= 980 and pos[1] == 238:
@@ -251,6 +285,7 @@ def main():
                         gamewindow.update()
                         gamewindow.after(100, self.movement1)
 
+            #Comportamiento y parametros de las llamas
             class Flame:
                 def __init__(self, canvas):
                     self.canvas = canvas
@@ -262,7 +297,7 @@ def main():
                     pos = canvasGame.bbox(self.flame)
                     enemy = canvasGame.bbox(principal)
                     if enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[2] < enemy[2]:
-                        score -= 250
+                        score -= 10
                         lives -= 1
                         scoreShow.configure(text="SCORE: " + str(score))
                         livesShow.configure(text="LIVES: " + str(lives))
@@ -270,7 +305,7 @@ def main():
                         gamewindow.destroy()
                         game1()
                     elif enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[0] < enemy[2]:
-                        score -= 250
+                        score -= 10
                         lives -= 1
                         scoreShow.configure(text="SCORE: " + str(score))
                         livesShow.configure(text="LIVES: " + str(lives))
@@ -278,10 +313,12 @@ def main():
                         gamewindow.destroy()
                         game1()
                         canvasGame.move(principal, 0, -5)
-                    elif ((enemy[2] - pos[2]) >= 0.00001 and (enemy[2] - pos[2]) <= 15) and ((enemy[3] - pos[3]) >= 0.00001 and (enemy[3] - pos[3]) <= 15):
-                        score += 15
+                    elif ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 15) and \
+                            ((abs(pos[0] - enemy[0]) > 1 and abs(pos[0] - enemy[0]) < 10) or
+                             (abs(pos[2] - enemy[2]) > 1 and abs(pos[2] - enemy[2]) < 10)):
+                        score += 150
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: +5 enemy points!",
+                        scorePlus.configure(text="Last Score Points Gained: +150 enemy points!",
                                             bg=random.choice(colorpool))
                         gamewindow.after(100, self.movement1)
                     elif pos[0] <= 980 and pos[1] == 238:
@@ -335,7 +372,7 @@ def main():
                 flame_thread.start()
                 gamewindow.after(random.randint(8000, 15000), createFlame)
 
-
+            #Funcion que le da gravedad al personaje principal
             def gravity():
                 x = 0
                 y = 2
@@ -345,6 +382,7 @@ def main():
                 collision()
                 gamewindow.after(100, gravity)
 
+            #Funcion que permite el movimiento del jugador
             def move():
                 def left(event):
                     x = -10
@@ -406,6 +444,9 @@ def main():
                 global score
                 global lives
                 global jumposky
+                global udosuno
+                global udosdos
+                global utres
 
                 #Dama
 
@@ -445,9 +486,12 @@ def main():
                 elif plat2col[1] < princol[3] < plat2col[3] and plat2col[0] < princol[0] < plat2col[2] \
                         and plat2col[0] < princol[2] < plat2col[2]:
                     jumposky += 1
-                    score += 5
-                    scoreShow.configure(text="SCORE: " + str(score))
-                    scorePlus.configure(text="Last Score Points Gained: +5 score points!", bg=random.choice(colorpool))
+                    if udosuno == 0:
+                        score += 500
+                        scoreShow.configure(text="SCORE: " + str(score))
+                        scorePlus.configure(text="Last Score Points Gained: +500 platform points!",
+                                            bg=random.choice(colorpool))
+                        udosuno += 1
                     canvasGame.move(principal, 0, -2)
                 elif plat2col[1] < princol[3] < plat2col[3] and plat2col[0] < princol[0] < plat2col[2]:
                     jumposky += 1
@@ -471,9 +515,12 @@ def main():
                 elif plat3col[1] < princol[3] < plat3col[3] and plat3col[0] < princol[0] < plat3col[2] \
                         and plat3col[0] < princol[2] < plat3col[2]:
                     jumposky += 1
-                    score += 5
-                    scoreShow.configure(text="SCORE: " + str(score))
-                    scorePlus.configure(text="Last Score Points Gained: +5 score points!", bg=random.choice(colorpool))
+                    if udosdos == 0:
+                        score += 500
+                        scoreShow.configure(text="SCORE: " + str(score))
+                        scorePlus.configure(text="Last Score Points Gained: +500 platform points!",
+                                            bg=random.choice(colorpool))
+                        udosdos += 1
                     canvasGame.move(principal, 0, -2)
                 elif plat3col[1] < princol[3] < plat3col[3] and plat3col[0] < princol[0] < plat3col[2]:
                     jumposky += 1
@@ -497,9 +544,12 @@ def main():
                 elif plat4col[1] < princol[3] < plat4col[3] and plat4col[0] < princol[0] < plat4col[2] \
                         and plat4col[0] < princol[2] < plat4col[2]:
                     jumposky += 1
-                    score += 10
-                    scoreShow.configure(text="SCORE: " + str(score))
-                    scorePlus.configure(text="Last Score Points Gained: +10 score points!", bg= random.choice(colorpool))
+                    if utres == 0:
+                        score += 1000
+                        scoreShow.configure(text="SCORE: " + str(score))
+                        scorePlus.configure(text="Last Score Points Gained: +1000 platform points!",
+                                            bg=random.choice(colorpool))
+                        utres += 1
                     canvasGame.move(principal, 0, -2)
                 elif plat4col[1] < princol[3] < plat4col[3] and plat4col[0] < princol[0] < plat4col[2]:
                     jumposky += 1
@@ -631,7 +681,6 @@ def main():
             scoreShow.place(x = 950, y = 25)
 
             #Vidas
-
             livesShow = tk.Label(canvasGame, text= "LIVES: "+str(lives), bg= "black", fg="white")
             livesShow.place(x=100, y=25)
 
@@ -649,9 +698,10 @@ def main():
             gravity()
             gamewindow.mainloop()
 
+        #Ventana cuando se pierde en el nivel 1
         else:
             playSound1()
-            lives = 3
+            lives = 3 #esto nos permite volver a tener 3 vidas
             endwindow1 = tk.Toplevel()
             endwindow1.title("You Lost!")
             endwindow1.geometry("1080x720")
@@ -673,10 +723,11 @@ def main():
             entryName = tk.Entry(canvasL1)
             entryName.place(x=475, y=305)
 
+            #Funcion para guardar puntuación
             def savedata():
                 global score
                 scores = open("scores.txt", "a")
-                scores.write(str(score)+" - "+str(entryName.get())+"\n")
+                scores.write(str(score)+" - "+str(entryName.get())+",")
                 scores.close()
                 endwindow1.destroy()
                 score = 0
@@ -695,9 +746,11 @@ def main():
 
             endwindow1.mainloop()
 
+    #Ventana para manejar el nivel 2
     def game2():
         global score
         global lives
+        #Entrar al nivel 2 si cumple el requisito de vidas
         if lives >= 1:
             playSound1()
             gamewindow2 = tk.Tk()
@@ -780,13 +833,12 @@ def main():
                     self.obstaculo = canvasGame.create_image(300, 185, image=nuevoObs, anchor=tk.NW)
 
                 def movement1(self):
-                    global cheat
                     global score
                     global lives
                     pos = canvasGame.bbox(self.obstaculo)
                     enemy = canvasGame.bbox(principal)
                     if enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[2] < enemy[2]:
-                        score -= 250
+                        score -= 15
                         lives -= 1
                         scoreShow.configure(text="SCORE: " + str(score))
                         livesShow.configure(text="LIVES: " + str(lives))
@@ -794,7 +846,7 @@ def main():
                         gamewindow2.destroy()
                         game2()
                     elif enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[0] < enemy[2]:
-                        score -= 250
+                        score -= 15
                         lives -= 1
                         scoreShow.configure(text="SCORE: " + str(score))
                         livesShow.configure(text="LIVES: " + str(lives))
@@ -802,11 +854,12 @@ def main():
                         gamewindow2.destroy()
                         game2()
                         canvasGame.move(principal, 0, -5)
-                    elif ((enemy[2] - pos[2]) >= 0.00001 and (enemy[2] - pos[2]) <= 15) and (
-                            (enemy[3] - pos[3]) >= 0.00001 and (enemy[3] - pos[3]) <= 15):
-                        score += 15
+                    elif ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 15) and \
+                            ((abs(pos[0] - enemy[0]) > 1 and abs(pos[0] - enemy[0]) < 10) or
+                             (abs(pos[2] - enemy[2]) > 1 and abs(pos[2] - enemy[2]) < 10)):
+                        score += 200
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: +5 enemy points!",
+                        scorePlus.configure(text="Last Score Points Gained: +200 enemy points!",
                                             bg=random.choice(colorpool))
                         gamewindow2.after(100, self.movement1)
                     elif pos[0] <= 980 and pos[1] == 185:
@@ -871,7 +924,7 @@ def main():
                     pos = canvasGame.bbox(self.flame)
                     enemy = canvasGame.bbox(principal)
                     if enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[2] < enemy[2]:
-                        score -= 250
+                        score -= 20
                         lives -= 1
                         scoreShow.configure(text="SCORE: " + str(score))
                         livesShow.configure(text="LIVES: " + str(lives))
@@ -879,7 +932,7 @@ def main():
                         gamewindow2.destroy()
                         game2()
                     elif enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[0] < enemy[2]:
-                        score -= 250
+                        score -= 20
                         lives -= 1
                         scoreShow.configure(text="SCORE: " + str(score))
                         livesShow.configure(text="LIVES: " + str(lives))
@@ -887,11 +940,12 @@ def main():
                         gamewindow2.destroy()
                         game2()
                         canvasGame.move(principal, 0, -5)
-                    elif ((enemy[2] - pos[2]) >= 0.00001 and (enemy[2] - pos[2]) <= 15) and (
-                            (enemy[3] - pos[3]) >= 0.00001 and (enemy[3] - pos[3]) <= 15):
-                        score += 15
+                    elif ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 15) and \
+                            ((abs(pos[0] - enemy[0]) > 1 and abs(pos[0] - enemy[0]) < 10) or
+                             (abs(pos[2] - enemy[2]) > 1 and abs(pos[2] - enemy[2]) < 10)):
+                        score += 250
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: +5 enemy points!",
+                        scorePlus.configure(text="Last Score Points Gained: +250 enemy points!",
                                             bg=random.choice(colorpool))
                         gamewindow2.after(100, self.movement1)
                     elif pos[0] <= 470 and pos[1] == 185:
@@ -1019,6 +1073,11 @@ def main():
                 global score
                 global lives
                 global jumposky
+                global duno
+                global ddos
+                global dtres
+                global dcuatro
+                global dcinco
 
                 # Dama
 
@@ -1058,9 +1117,12 @@ def main():
                 elif plat2col[1] < princol[3] < plat2col[3] and plat2col[0] < princol[0] < plat2col[2] \
                         and plat2col[0] < princol[2] < plat2col[2]:
                     jumposky += 1
-                    score += 5
-                    scoreShow.configure(text="SCORE: " + str(score))
-                    scorePlus.configure(text="Last Score Points Gained: +5 score points!", bg=random.choice(colorpool))
+                    if duno == 0:
+                        score += 1000
+                        scoreShow.configure(text="SCORE: " + str(score))
+                        scorePlus.configure(text="Last Score Points Gained: +1000 platform points!",
+                                            bg=random.choice(colorpool))
+                        duno += 1
                     canvasGame.move(principal, 0, -2)
                 elif plat2col[1] < princol[3] < plat2col[3] and plat2col[0] < princol[0] < plat2col[2]:
                     jumposky += 1
@@ -1084,9 +1146,12 @@ def main():
                 elif plat3col[1] < princol[3] < plat3col[3] and plat3col[0] < princol[0] < plat3col[2] \
                         and plat3col[0] < princol[2] < plat3col[2]:
                     jumposky += 1
-                    score += 10
-                    scoreShow.configure(text="SCORE: " + str(score))
-                    scorePlus.configure(text="Last Score Points Gained: +10 score points!", bg=random.choice(colorpool))
+                    if ddos == 0:
+                        score += 1100
+                        scoreShow.configure(text="SCORE: " + str(score))
+                        scorePlus.configure(text="Last Score Points Gained: +1100 platform points!",
+                                            bg=random.choice(colorpool))
+                        ddos += 1
                     canvasGame.move(principal, 0, -2)
                 elif plat3col[1] < princol[3] < plat3col[3] and plat3col[0] < princol[0] < plat3col[2]:
                     jumposky += 1
@@ -1110,9 +1175,12 @@ def main():
                 elif plat4col[1] < princol[3] < plat4col[3] and plat4col[0] < princol[0] < plat4col[2] \
                         and plat4col[0] < princol[2] < plat4col[2]:
                     jumposky += 1
-                    score += 20
-                    scoreShow.configure(text="SCORE: " + str(score))
-                    scorePlus.configure(text="Last Score Points Gained: +20 score points!", bg=random.choice(colorpool))
+                    if dtres == 0:
+                        score += 1200
+                        scoreShow.configure(text="SCORE: " + str(score))
+                        scorePlus.configure(text="Last Score Points Gained: +1200 platform points!",
+                                            bg=random.choice(colorpool))
+                        dtres += 1
                     canvasGame.move(principal, 0, -2)
                 elif plat4col[1] < princol[3] < plat4col[3] and plat4col[0] < princol[0] < plat4col[2]:
                     jumposky += 1
@@ -1136,9 +1204,12 @@ def main():
                 elif plat5col[1] < princol[3] < plat5col[3] and plat5col[0] < princol[0] < plat5col[2] \
                         and plat5col[0] < princol[2] < plat5col[2]:
                     jumposky += 1
-                    score += 10
-                    scoreShow.configure(text="SCORE: " + str(score))
-                    scorePlus.configure(text="Last Score Points Gained: +10 score points!", bg=random.choice(colorpool))
+                    if dcuatro == 0:
+                        score += 1300
+                        scoreShow.configure(text="SCORE: " + str(score))
+                        scorePlus.configure(text="Last Score Points Gained: +1300 platform points!",
+                                            bg=random.choice(colorpool))
+                        dcuatro += 1
                     canvasGame.move(principal, 0, -2)
                 elif plat5col[1] < princol[3] < plat5col[3] and plat5col[0] < princol[0] < plat5col[2]:
                     jumposky += 1
@@ -1162,9 +1233,12 @@ def main():
                 elif plat6col[1] < princol[3] < plat6col[3] and plat6col[0] < princol[0] < plat6col[2] \
                         and plat6col[0] < princol[2] < plat6col[2]:
                     jumposky += 1
-                    score += 10
-                    scoreShow.configure(text="SCORE: " + str(score))
-                    scorePlus.configure(text="Last Score Points Gained: +10 score points!", bg=random.choice(colorpool))
+                    if dcinco == 0:
+                        score += 2000
+                        scoreShow.configure(text="SCORE: " + str(score))
+                        scorePlus.configure(text="Last Score Points Gained: +2000 platform points!",
+                                            bg=random.choice(colorpool))
+                        dcinco += 1
                     canvasGame.move(principal, 0, -2)
                 elif plat6col[1] < princol[3] < plat6col[3] and plat6col[0] < princol[0] < plat6col[2]:
                     jumposky += 1
@@ -1376,7 +1450,7 @@ def main():
             def savedata():
                 global score
                 scores = open("scores.txt", "a")
-                scores.write(str(score) + " - " + str(entryName.get()) + "\n")
+                scores.write(str(score) + " - " + str(entryName.get()) + ",")
                 scores.close()
                 endwindow2.destroy()
                 score = 0
@@ -1419,7 +1493,7 @@ def main():
         def savedata():
             global score
             scores = open("scores.txt", "a")
-            scores.write(str(score) + " - " + str(entryName.get()) + "\n")
+            scores.write(str(score) + " - " + str(entryName.get()) + ",")
             scores.close()
             congrats.destroy()
             score = 0
@@ -1457,9 +1531,11 @@ def main():
         scorewindow.configure(background="black")
 
         show=open("scores.txt", "r")
-        read=show.readlines()
-        top=sorted(read,reverse=True)
+        read0=show.read()
+        read=read0.split(",")
+        top=natsorted(read, reverse=True)
         print(top)
+        print(read)
 
         label0 = tk.Label(scorewindow, text="TOP 3 CHALLENGERS", font=("Arial", 15), bg="black", fg="white")
         label0.place(x=450, y=100)
