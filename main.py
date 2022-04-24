@@ -106,8 +106,25 @@ def main():
     def startwindow():
         global score
         global lives
+        global udosuno
+        global udosdos
+        global utres
+        global duno
+        global ddos
+        global dtres
+        global dcuatro
+        global dcinco
         score = 0
         lives = 3
+        udosuno = 0
+        udosdos = 0
+        utres = 0
+        duno = 0
+        ddos = 0
+        dtres = 0
+        dcuatro = 0
+        dcinco = 0
+
         startWin = tk.Tk()
         startWin.geometry("600x600")
         startWin.geometry("+475+100")
@@ -241,7 +258,7 @@ def main():
                         gamewindow.destroy()
                         game1()
                         canvasGame.move(principal, 0, -5) #ojo esto
-                    elif ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 15) and \
+                    elif ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 35) and \
                             ((abs(pos[0] - enemy[0]) > 1 and abs(pos[0] - enemy[0]) < 10) or
                              (abs(pos[2] - enemy[2]) > 1 and abs(pos[2] - enemy[2]) < 10)):
                         score += 100
@@ -314,7 +331,7 @@ def main():
                         gamewindow.destroy()
                         game1()
                         canvasGame.move(principal, 0, -5)
-                    elif ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 15) and \
+                    elif ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 35) and \
                             ((abs(pos[0] - enemy[0]) > 1 and abs(pos[0] - enemy[0]) < 10) or
                              (abs(pos[2] - enemy[2]) > 1 and abs(pos[2] - enemy[2]) < 10)):
                         score += 150
@@ -855,7 +872,7 @@ def main():
                         gamewindow2.destroy()
                         game2()
                         canvasGame.move(principal, 0, -5)
-                    elif ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 15) and \
+                    elif ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 35) and \
                             ((abs(pos[0] - enemy[0]) > 1 and abs(pos[0] - enemy[0]) < 10) or
                              (abs(pos[2] - enemy[2]) > 1 and abs(pos[2] - enemy[2]) < 10)):
                         score += 200
@@ -941,7 +958,7 @@ def main():
                         gamewindow2.destroy()
                         game2()
                         canvasGame.move(principal, 0, -5)
-                    elif ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 15) and \
+                    elif ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 35) and \
                             ((abs(pos[0] - enemy[0]) > 1 and abs(pos[0] - enemy[0]) < 10) or
                              (abs(pos[2] - enemy[2]) > 1 and abs(pos[2] - enemy[2]) < 10)):
                         score += 250
@@ -1471,6 +1488,7 @@ def main():
 
             endwindow2.mainloop()
 
+    # Ventana para manejar pantalla de victoria
     def congrats():
         playSound1()
         global score
