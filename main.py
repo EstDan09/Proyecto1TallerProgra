@@ -31,6 +31,7 @@ lives = 3
 #Variable que me ayuda a no hacer doble saltos
 global jumposky
 jumposky = 0
+#Variables para controlar puntos por plataforma
 global udosuno
 udosuno = 0
 global udosdos
@@ -52,7 +53,7 @@ dcinco = 0
 anim = tk.Tk()
 anim.geometry("1080x720")
 anim.geometry("+250+50")
-anim.overrideredirect(True)
+anim.overrideredirect(True) #eliminar borde
 anim.configure(background="black")
 titulo1 = tk.Label(anim, text= "The Monkey is the key...but he is also death...a herald of doom...", font= "Papyrus", bg= "black",
                    fg= "white")
