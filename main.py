@@ -241,24 +241,7 @@ def main():
                     global lives
                     pos = canvasGame.bbox(self.obstaculo)
                     enemy = canvasGame.bbox(principal)
-                    if enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[2] < enemy[2]:
-                        score -= 10
-                        lives -= 1
-                        scoreShow.configure(text="SCORE: " + str(score))
-                        livesShow.configure(text="LIVES: " + str(lives))
-                        time.sleep(1.0)
-                        gamewindow.destroy()
-                        game1()
-                    elif enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[0] < enemy[2]:
-                        score -= 10
-                        lives -= 1
-                        scoreShow.configure(text="SCORE: " + str(score))
-                        livesShow.configure(text="LIVES: " + str(lives))
-                        time.sleep(1.0)
-                        gamewindow.destroy()
-                        game1()
-                        canvasGame.move(principal, 0, -5) #ojo esto
-                    elif ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 35) and \
+                    if ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 35) and \
                             ((abs(pos[0] - enemy[0]) > 1 and abs(pos[0] - enemy[0]) < 10) or
                              (abs(pos[2] - enemy[2]) > 1 and abs(pos[2] - enemy[2]) < 10)):
                         score += 100
@@ -266,42 +249,114 @@ def main():
                         scorePlus.configure(text="Last Score Points Gained: +100 enemy points!",
                                             bg=random.choice(colorpool))
                         gamewindow.after(100, self.movement1)
-                    elif pos[0] <= 980 and pos[1] == 238:
-                        #print("P"+str(pos))
-                        #print("T"+str(enemy))
-                        barrelx = 20
-                        barrely = 0
-                        canvasGame.move(self.obstaculo, barrelx, barrely)
-                        gamewindow.update()
-                        gamewindow.after(100, self.movement1)
-                    elif pos[0] >= 980 and pos[1] <= 420:
-                        #print("2" + str(pos))
-                        barrelx = 0
-                        barrely = 20
-                        canvasGame.move(self.obstaculo, barrelx, barrely)
-                        gamewindow.update()
-                        gamewindow.after(100, self.movement1)
-                    elif pos[0] >= 480 and pos[1] >= 420:
-                        #print("3" + str(pos))
-                        barrelx = -20
-                        barrely = 0
-                        canvasGame.move(self.obstaculo, barrelx, barrely)
-                        gamewindow.update()
-                        gamewindow.after(100, self.movement1)
-                    elif pos[0] <= 480 and pos[1] <= 620:
-                        #print("4" + str(pos))
-                        barrelx = 0
-                        barrely = 20
-                        canvasGame.move(self.obstaculo, barrelx, barrely)
-                        gamewindow.update()
-                        gamewindow.after(100, self.movement1)
-                    elif pos[0] >= -50 and pos[1] >= 620:
-                        #print("5" + str(pos))
-                        barrelx = -20
-                        barrely = 0
-                        canvasGame.move(self.obstaculo, barrelx, barrely)
-                        gamewindow.update()
-                        gamewindow.after(100, self.movement1)
+
+                        if enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[2] < enemy[2]:
+                            score -= 10
+                            lives -= 1
+                            scoreShow.configure(text="SCORE: " + str(score))
+                            livesShow.configure(text="LIVES: " + str(lives))
+                            time.sleep(1.0)
+                            gamewindow.destroy()
+                            game1()
+                        elif enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[0] < enemy[2]:
+                            score -= 10
+                            lives -= 1
+                            scoreShow.configure(text="SCORE: " + str(score))
+                            livesShow.configure(text="LIVES: " + str(lives))
+                            time.sleep(1.0)
+                            gamewindow.destroy()
+                            game1()
+                            canvasGame.move(principal, 0, -5) #ojo esto
+                        elif pos[0] <= 980 and pos[1] == 238:
+                            #print("P"+str(pos))
+                            #print("T"+str(enemy))
+                            barrelx = 20
+                            barrely = 0
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow.update()
+                            gamewindow.after(100, self.movement1)
+                        elif pos[0] >= 980 and pos[1] <= 420:
+                            #print("2" + str(pos))
+                            barrelx = 0
+                            barrely = 20
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow.update()
+                            gamewindow.after(100, self.movement1)
+                        elif pos[0] >= 480 and pos[1] >= 420:
+                            #print("3" + str(pos))
+                            barrelx = -20
+                            barrely = 0
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow.update()
+                            gamewindow.after(100, self.movement1)
+                        elif pos[0] <= 480 and pos[1] <= 620:
+                            #print("4" + str(pos))
+                            barrelx = 0
+                            barrely = 20
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow.update()
+                            gamewindow.after(100, self.movement1)
+                        elif pos[0] >= -50 and pos[1] >= 620:
+                            #print("5" + str(pos))
+                            barrelx = -20
+                            barrely = 0
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow.update()
+                            gamewindow.after(100, self.movement1)
+                    else:
+                        if enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[2] < enemy[2]:
+                            score -= 10
+                            lives -= 1
+                            scoreShow.configure(text="SCORE: " + str(score))
+                            livesShow.configure(text="LIVES: " + str(lives))
+                            time.sleep(1.0)
+                            gamewindow.destroy()
+                            game1()
+                        elif enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[0] < enemy[2]:
+                            score -= 10
+                            lives -= 1
+                            scoreShow.configure(text="SCORE: " + str(score))
+                            livesShow.configure(text="LIVES: " + str(lives))
+                            time.sleep(1.0)
+                            gamewindow.destroy()
+                            game1()
+                            canvasGame.move(principal, 0, -5) #ojo esto
+                        elif pos[0] <= 980 and pos[1] == 238:
+                            #print("P"+str(pos))
+                            #print("T"+str(enemy))
+                            barrelx = 20
+                            barrely = 0
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow.update()
+                            gamewindow.after(100, self.movement1)
+                        elif pos[0] >= 980 and pos[1] <= 420:
+                            #print("2" + str(pos))
+                            barrelx = 0
+                            barrely = 20
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow.update()
+                            gamewindow.after(100, self.movement1)
+                        elif pos[0] >= 480 and pos[1] >= 420:
+                            #print("3" + str(pos))
+                            barrelx = -20
+                            barrely = 0
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow.update()
+                            gamewindow.after(100, self.movement1)
+                        elif pos[0] <= 480 and pos[1] <= 620:
+                            #print("4" + str(pos))
+                            barrelx = 0
+                            barrely = 20
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow.update()
+                            gamewindow.after(100, self.movement1)
+                        elif pos[0] >= -50 and pos[1] >= 620:
+                            #print("5" + str(pos))
+                            barrelx = -20
+                            barrely = 0
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow.update()
+                            gamewindow.after(100, self.movement1)
 
             #Comportamiento y parametros de las llamas
             class Flame:
@@ -314,67 +369,122 @@ def main():
                     global lives
                     pos = canvasGame.bbox(self.flame)
                     enemy = canvasGame.bbox(principal)
-                    if enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[2] < enemy[2]:
-                        score -= 10
-                        lives -= 1
-                        scoreShow.configure(text="SCORE: " + str(score))
-                        livesShow.configure(text="LIVES: " + str(lives))
-                        time.sleep(1.0)
-                        gamewindow.destroy()
-                        game1()
-                    elif enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[0] < enemy[2]:
-                        score -= 10
-                        lives -= 1
-                        scoreShow.configure(text="SCORE: " + str(score))
-                        livesShow.configure(text="LIVES: " + str(lives))
-                        time.sleep(1.0)
-                        gamewindow.destroy()
-                        game1()
-                        canvasGame.move(principal, 0, -5)
-                    elif ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 35) and \
+                    if ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 35) and \
                             ((abs(pos[0] - enemy[0]) > 1 and abs(pos[0] - enemy[0]) < 10) or
                              (abs(pos[2] - enemy[2]) > 1 and abs(pos[2] - enemy[2]) < 10)):
-                        score += 150
+                        score += 100
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: +150 enemy points!",
+                        scorePlus.configure(text="Last Score Points Gained: +100 enemy points!",
                                             bg=random.choice(colorpool))
                         gamewindow.after(100, self.movement1)
-                    elif pos[0] <= 980 and pos[1] == 238:
-                        #print("P"+str(pos))
-                        #print("T"+str(enemy))
-                        barrelx = 20
-                        barrely = 0
-                        canvasGame.move(self.flame, barrelx, barrely)
-                        gamewindow.update()
-                        gamewindow.after(100, self.movement1)
-                    elif pos[0] >= 980 and pos[1] <= 420:
-                        #print("2" + str(pos))
-                        barrelx = 0
-                        barrely = 20
-                        canvasGame.move(self.flame, barrelx, barrely)
-                        gamewindow.update()
-                        gamewindow.after(100, self.movement1)
-                    elif pos[0] >= 480 and pos[1] >= 420:
-                        #print("3" + str(pos))
-                        barrelx = -20
-                        barrely = 0
-                        canvasGame.move(self.flame, barrelx, barrely)
-                        gamewindow.update()
-                        gamewindow.after(100, self.movement1)
-                    elif pos[0] <= 480 and pos[1] <= 620:
-                        #print("4" + str(pos))
-                        barrelx = 0
-                        barrely = 20
-                        canvasGame.move(self.flame, barrelx, barrely)
-                        gamewindow.update()
-                        gamewindow.after(100, self.movement1)
-                    elif pos[0] >= -50 and pos[1] >= 620:
-                        #print("5" + str(pos))
-                        barrelx = -20
-                        barrely = 0
-                        canvasGame.move(self.flame, barrelx, barrely)
-                        gamewindow.update()
-                        gamewindow.after(100, self.movement1)
+
+                        if enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[2] < enemy[2]:
+                            score -= 10
+                            lives -= 1
+                            scoreShow.configure(text="SCORE: " + str(score))
+                            livesShow.configure(text="LIVES: " + str(lives))
+                            time.sleep(1.0)
+                            gamewindow.destroy()
+                            game1()
+                        elif enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[0] < enemy[2]:
+                            score -= 10
+                            lives -= 1
+                            scoreShow.configure(text="SCORE: " + str(score))
+                            livesShow.configure(text="LIVES: " + str(lives))
+                            time.sleep(1.0)
+                            gamewindow.destroy()
+                            game1()
+                            canvasGame.move(principal, 0, -5)  # ojo esto
+                        elif pos[0] <= 980 and pos[1] == 238:
+                            # print("P"+str(pos))
+                            # print("T"+str(enemy))
+                            barrelx = 20
+                            barrely = 0
+                            canvasGame.move(self.flame, barrelx, barrely)
+                            gamewindow.update()
+                            gamewindow.after(100, self.movement1)
+                        elif pos[0] >= 980 and pos[1] <= 420:
+                            # print("2" + str(pos))
+                            barrelx = 0
+                            barrely = 20
+                            canvasGame.move(self.flame, barrelx, barrely)
+                            gamewindow.update()
+                            gamewindow.after(100, self.movement1)
+                        elif pos[0] >= 480 and pos[1] >= 420:
+                            # print("3" + str(pos))
+                            barrelx = -20
+                            barrely = 0
+                            canvasGame.move(self.flame, barrelx, barrely)
+                            gamewindow.update()
+                            gamewindow.after(100, self.movement1)
+                        elif pos[0] <= 480 and pos[1] <= 620:
+                            # print("4" + str(pos))
+                            barrelx = 0
+                            barrely = 20
+                            canvasGame.move(self.flame, barrelx, barrely)
+                            gamewindow.update()
+                            gamewindow.after(100, self.movement1)
+                        elif pos[0] >= -50 and pos[1] >= 620:
+                            # print("5" + str(pos))
+                            barrelx = -20
+                            barrely = 0
+                            canvasGame.move(self.flame, barrelx, barrely)
+                            gamewindow.update()
+                            gamewindow.after(100, self.movement1)
+                    else:
+                        if enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[2] < enemy[2]:
+                            score -= 10
+                            lives -= 1
+                            scoreShow.configure(text="SCORE: " + str(score))
+                            livesShow.configure(text="LIVES: " + str(lives))
+                            time.sleep(1.0)
+                            gamewindow.destroy()
+                            game1()
+                        elif enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[0] < enemy[2]:
+                            score -= 10
+                            lives -= 1
+                            scoreShow.configure(text="SCORE: " + str(score))
+                            livesShow.configure(text="LIVES: " + str(lives))
+                            time.sleep(1.0)
+                            gamewindow.destroy()
+                            game1()
+                            canvasGame.move(principal, 0, -5)  # ojo esto
+                        elif pos[0] <= 980 and pos[1] == 238:
+                            # print("P"+str(pos))
+                            # print("T"+str(enemy))
+                            barrelx = 20
+                            barrely = 0
+                            canvasGame.move(self.flame, barrelx, barrely)
+                            gamewindow.update()
+                            gamewindow.after(100, self.movement1)
+                        elif pos[0] >= 980 and pos[1] <= 420:
+                            # print("2" + str(pos))
+                            barrelx = 0
+                            barrely = 20
+                            canvasGame.move(self.flame, barrelx, barrely)
+                            gamewindow.update()
+                            gamewindow.after(100, self.movement1)
+                        elif pos[0] >= 480 and pos[1] >= 420:
+                            # print("3" + str(pos))
+                            barrelx = -20
+                            barrely = 0
+                            canvasGame.move(self.flame, barrelx, barrely)
+                            gamewindow.update()
+                            gamewindow.after(100, self.movement1)
+                        elif pos[0] <= 480 and pos[1] <= 620:
+                            # print("4" + str(pos))
+                            barrelx = 0
+                            barrely = 20
+                            canvasGame.move(self.flame, barrelx, barrely)
+                            gamewindow.update()
+                            gamewindow.after(100, self.movement1)
+                        elif pos[0] >= -50 and pos[1] >= 620:
+                            # print("5" + str(pos))
+                            barrelx = -20
+                            barrely = 0
+                            canvasGame.move(self.flame, barrelx, barrely)
+                            gamewindow.update()
+                            gamewindow.after(100, self.movement1)
 
             def createBarrel():
                 barrel = Barrel(canvasGame)
@@ -855,81 +965,150 @@ def main():
                     global lives
                     pos = canvasGame.bbox(self.obstaculo)
                     enemy = canvasGame.bbox(principal)
-                    if enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[2] < enemy[2]:
-                        score -= 15
-                        lives -= 1
-                        scoreShow.configure(text="SCORE: " + str(score))
-                        livesShow.configure(text="LIVES: " + str(lives))
-                        time.sleep(1.0)
-                        gamewindow2.destroy()
-                        game2()
-                    elif enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[0] < enemy[2]:
-                        score -= 15
-                        lives -= 1
-                        scoreShow.configure(text="SCORE: " + str(score))
-                        livesShow.configure(text="LIVES: " + str(lives))
-                        time.sleep(1.0)
-                        gamewindow2.destroy()
-                        game2()
-                        canvasGame.move(principal, 0, -5)
-                    elif ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 35) and \
+                    if ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 35) and \
                             ((abs(pos[0] - enemy[0]) > 1 and abs(pos[0] - enemy[0]) < 10) or
                              (abs(pos[2] - enemy[2]) > 1 and abs(pos[2] - enemy[2]) < 10)):
                         score += 200
                         scoreShow.configure(text="SCORE: " + str(score))
                         scorePlus.configure(text="Last Score Points Gained: +200 enemy points!",
                                             bg=random.choice(colorpool))
-                        gamewindow2.after(100, self.movement1)
-                    elif pos[0] <= 980 and pos[1] == 185:
-                        # print("P"+str(pos))
-                        # print("T"+str(enemy))
-                        barrelx = 20
-                        barrely = 0
-                        canvasGame.move(self.obstaculo, barrelx, barrely)
-                        gamewindow2.update()
-                        gamewindow2.after(100, self.movement1)
-                    elif pos[0] >= 980 and pos[1] <= 325:
-                        # print("2" + str(pos))
-                        barrelx = 0
-                        barrely = 20
-                        canvasGame.move(self.obstaculo, barrelx, barrely)
-                        gamewindow2.update()
-                        gamewindow2.after(100, self.movement1)
-                    elif pos[0] >= 480 and pos[1] >= 325 and pos[1] < 480:
-                        # print("3" + str(pos))
-                        barrelx = -20
-                        barrely = 0
-                        canvasGame.move(self.obstaculo, barrelx, barrely)
-                        gamewindow2.update()
-                        gamewindow2.after(100, self.movement1)
-                    elif pos[0] <= 480 and pos[1] <= 480:
-                        # print("4" + str(pos))
-                        barrelx = 0
-                        barrely = 20
-                        canvasGame.move(self.obstaculo, barrelx, barrely)
-                        gamewindow2.update()
-                        gamewindow2.after(100, self.movement1)
-                    elif pos[0] <= 1000 and pos[1] >= 480 and pos[1] < 615:
-                        # print("5" + str(pos))
-                        barrelx = 20
-                        barrely = 0
-                        canvasGame.move(self.obstaculo, barrelx, barrely)
-                        gamewindow2.update()
-                        gamewindow2.after(100, self.movement1)
-                    elif pos[0] >= 1000 and pos[1] <= 625:
-                        # print("6" + str(pos))
-                        barrelx = 0
-                        barrely = 20
-                        canvasGame.move(self.obstaculo, barrelx, barrely)
-                        gamewindow2.update()
-                        gamewindow2.after(100, self.movement1)
-                    elif pos[0] >= -50 and pos[1] >= 625:
-                        #print("7" + str(pos))
-                        barrelx = -20
-                        barrely = 0
-                        canvasGame.move(self.obstaculo, barrelx, barrely)
-                        gamewindow2.update()
-                        gamewindow2.after(100, self.movement1)
+                        if enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[2] < enemy[2]:
+                            score -= 15
+                            lives -= 1
+                            scoreShow.configure(text="SCORE: " + str(score))
+                            livesShow.configure(text="LIVES: " + str(lives))
+                            time.sleep(1.0)
+                            gamewindow2.destroy()
+                            game2()
+                        elif enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[0] < enemy[2]:
+                            score -= 15
+                            lives -= 1
+                            scoreShow.configure(text="SCORE: " + str(score))
+                            livesShow.configure(text="LIVES: " + str(lives))
+                            time.sleep(1.0)
+                            gamewindow2.destroy()
+                            game2()
+                            canvasGame.move(principal, 0, -5)
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] <= 980 and pos[1] == 185:
+                            # print("P"+str(pos))
+                            # print("T"+str(enemy))
+                            barrelx = 20
+                            barrely = 0
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] >= 980 and pos[1] <= 325:
+                            # print("2" + str(pos))
+                            barrelx = 0
+                            barrely = 20
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] >= 480 and pos[1] >= 325 and pos[1] < 480:
+                            # print("3" + str(pos))
+                            barrelx = -20
+                            barrely = 0
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] <= 480 and pos[1] <= 480:
+                            # print("4" + str(pos))
+                            barrelx = 0
+                            barrely = 20
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] <= 1000 and pos[1] >= 480 and pos[1] < 615:
+                            # print("5" + str(pos))
+                            barrelx = 20
+                            barrely = 0
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] >= 1000 and pos[1] <= 625:
+                            # print("6" + str(pos))
+                            barrelx = 0
+                            barrely = 20
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] >= -50 and pos[1] >= 625:
+                            #print("7" + str(pos))
+                            barrelx = -20
+                            barrely = 0
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                    else:
+                        if enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[2] < enemy[2]:
+                            score -= 15
+                            lives -= 1
+                            scoreShow.configure(text="SCORE: " + str(score))
+                            livesShow.configure(text="LIVES: " + str(lives))
+                            time.sleep(1.0)
+                            gamewindow2.destroy()
+                            game2()
+                        elif enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[0] < enemy[2]:
+                            score -= 15
+                            lives -= 1
+                            scoreShow.configure(text="SCORE: " + str(score))
+                            livesShow.configure(text="LIVES: " + str(lives))
+                            time.sleep(1.0)
+                            gamewindow2.destroy()
+                            game2()
+                            canvasGame.move(principal, 0, -5)
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] <= 980 and pos[1] == 185:
+                            # print("P"+str(pos))
+                            # print("T"+str(enemy))
+                            barrelx = 20
+                            barrely = 0
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] >= 980 and pos[1] <= 325:
+                            # print("2" + str(pos))
+                            barrelx = 0
+                            barrely = 20
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] >= 480 and pos[1] >= 325 and pos[1] < 480:
+                            # print("3" + str(pos))
+                            barrelx = -20
+                            barrely = 0
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] <= 480 and pos[1] <= 480:
+                            # print("4" + str(pos))
+                            barrelx = 0
+                            barrely = 20
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] <= 1000 and pos[1] >= 480 and pos[1] < 615:
+                            # print("5" + str(pos))
+                            barrelx = 20
+                            barrely = 0
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] >= 1000 and pos[1] <= 625:
+                            # print("6" + str(pos))
+                            barrelx = 0
+                            barrely = 20
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] >= -50 and pos[1] >= 625:
+                            #print("7" + str(pos))
+                            barrelx = -20
+                            barrely = 0
+                            canvasGame.move(self.obstaculo, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
 
             class Flame:
                 def __init__(self, canvas):
@@ -941,24 +1120,7 @@ def main():
                     global lives
                     pos = canvasGame.bbox(self.flame)
                     enemy = canvasGame.bbox(principal)
-                    if enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[2] < enemy[2]:
-                        score -= 20
-                        lives -= 1
-                        scoreShow.configure(text="SCORE: " + str(score))
-                        livesShow.configure(text="LIVES: " + str(lives))
-                        time.sleep(1.0)
-                        gamewindow2.destroy()
-                        game2()
-                    elif enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[0] < enemy[2]:
-                        score -= 20
-                        lives -= 1
-                        scoreShow.configure(text="SCORE: " + str(score))
-                        livesShow.configure(text="LIVES: " + str(lives))
-                        time.sleep(1.0)
-                        gamewindow2.destroy()
-                        game2()
-                        canvasGame.move(principal, 0, -5)
-                    elif ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 35) and \
+                    if ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 35) and \
                             ((abs(pos[0] - enemy[0]) > 1 and abs(pos[0] - enemy[0]) < 10) or
                              (abs(pos[2] - enemy[2]) > 1 and abs(pos[2] - enemy[2]) < 10)):
                         score += 250
@@ -966,42 +1128,129 @@ def main():
                         scorePlus.configure(text="Last Score Points Gained: +250 enemy points!",
                                             bg=random.choice(colorpool))
                         gamewindow2.after(100, self.movement1)
-                    elif pos[0] <= 470 and pos[1] == 185:
-                        # print("P"+str(pos))
-                        # print("T"+str(enemy))
-                        barrelx = 20
-                        barrely = 0
-                        canvasGame.move(self.flame, barrelx, barrely)
-                        gamewindow2.update()
-                        gamewindow2.after(100, self.movement1)
-                    elif pos[0] >= 470 and pos[1] <= 325:
-                        # print("2" + str(pos))
-                        barrelx = 0
-                        barrely = 20
-                        canvasGame.move(self.flame, barrelx, barrely)
-                        gamewindow2.update()
-                        gamewindow2.after(100, self.movement1)
-                    elif pos[0] >= 175 and pos[1] >= 325:
-                        # print("3" + str(pos))
-                        barrelx = -20
-                        barrely = 0
-                        canvasGame.move(self.flame, barrelx, barrely)
-                        gamewindow2.update()
-                        gamewindow2.after(100, self.movement1)
-                    elif pos[0] <= 175 and pos[1] <= 480:
-                        # print("4" + str(pos))
-                        barrelx = 0
-                        barrely = 20
-                        canvasGame.move(self.flame, barrelx, barrely)
-                        gamewindow2.update()
-                        gamewindow2.after(100, self.movement1)
-                    elif pos[0] >= -50 and pos[1] >= 480:
-                        # print("5" + str(pos))
-                        barrelx = -20
-                        barrely = 0
-                        canvasGame.move(self.flame, barrelx, barrely)
-                        gamewindow2.update()
-                        gamewindow2.after(100, self.movement1)
+                        if enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[2] < enemy[2]:
+                            score -= 20
+                            lives -= 1
+                            scoreShow.configure(text="SCORE: " + str(score))
+                            livesShow.configure(text="LIVES: " + str(lives))
+                            time.sleep(1.0)
+                            gamewindow2.destroy()
+                            game2()
+                        elif enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[0] < enemy[2]:
+                            score -= 20
+                            lives -= 1
+                            scoreShow.configure(text="SCORE: " + str(score))
+                            livesShow.configure(text="LIVES: " + str(lives))
+                            time.sleep(1.0)
+                            gamewindow2.destroy()
+                            game2()
+                            canvasGame.move(principal, 0, -5)
+                        elif ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 35) and \
+                                ((abs(pos[0] - enemy[0]) > 1 and abs(pos[0] - enemy[0]) < 10) or
+                                 (abs(pos[2] - enemy[2]) > 1 and abs(pos[2] - enemy[2]) < 10)):
+                            score += 250
+                            scoreShow.configure(text="SCORE: " + str(score))
+                            scorePlus.configure(text="Last Score Points Gained: +250 enemy points!",
+                                                bg=random.choice(colorpool))
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] <= 470 and pos[1] == 185:
+                            # print("P"+str(pos))
+                            # print("T"+str(enemy))
+                            barrelx = 20
+                            barrely = 0
+                            canvasGame.move(self.flame, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] >= 470 and pos[1] <= 325:
+                            # print("2" + str(pos))
+                            barrelx = 0
+                            barrely = 20
+                            canvasGame.move(self.flame, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] >= 175 and pos[1] >= 325:
+                            # print("3" + str(pos))
+                            barrelx = -20
+                            barrely = 0
+                            canvasGame.move(self.flame, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] <= 175 and pos[1] <= 480:
+                            # print("4" + str(pos))
+                            barrelx = 0
+                            barrely = 20
+                            canvasGame.move(self.flame, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] >= -50 and pos[1] >= 480:
+                            # print("5" + str(pos))
+                            barrelx = -20
+                            barrely = 0
+                            canvasGame.move(self.flame, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                    else:
+                        if enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[2] < enemy[2]:
+                            score -= 20
+                            lives -= 1
+                            scoreShow.configure(text="SCORE: " + str(score))
+                            livesShow.configure(text="LIVES: " + str(lives))
+                            time.sleep(1.0)
+                            gamewindow2.destroy()
+                            game2()
+                        elif enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[0] < enemy[2]:
+                            score -= 20
+                            lives -= 1
+                            scoreShow.configure(text="SCORE: " + str(score))
+                            livesShow.configure(text="LIVES: " + str(lives))
+                            time.sleep(1.0)
+                            gamewindow2.destroy()
+                            game2()
+                            canvasGame.move(principal, 0, -5)
+                        elif ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 35) and \
+                                ((abs(pos[0] - enemy[0]) > 1 and abs(pos[0] - enemy[0]) < 10) or
+                                 (abs(pos[2] - enemy[2]) > 1 and abs(pos[2] - enemy[2]) < 10)):
+                            score += 250
+                            scoreShow.configure(text="SCORE: " + str(score))
+                            scorePlus.configure(text="Last Score Points Gained: +250 enemy points!",
+                                                bg=random.choice(colorpool))
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] <= 470 and pos[1] == 185:
+                            # print("P"+str(pos))
+                            # print("T"+str(enemy))
+                            barrelx = 20
+                            barrely = 0
+                            canvasGame.move(self.flame, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] >= 470 and pos[1] <= 325:
+                            # print("2" + str(pos))
+                            barrelx = 0
+                            barrely = 20
+                            canvasGame.move(self.flame, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] >= 175 and pos[1] >= 325:
+                            # print("3" + str(pos))
+                            barrelx = -20
+                            barrely = 0
+                            canvasGame.move(self.flame, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] <= 175 and pos[1] <= 480:
+                            # print("4" + str(pos))
+                            barrelx = 0
+                            barrely = 20
+                            canvasGame.move(self.flame, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
+                        elif pos[0] >= -50 and pos[1] >= 480:
+                            # print("5" + str(pos))
+                            barrelx = -20
+                            barrely = 0
+                            canvasGame.move(self.flame, barrelx, barrely)
+                            gamewindow2.update()
+                            gamewindow2.after(100, self.movement1)
 
             def createBarrel():
                 barrel = Barrel(canvasGame)
