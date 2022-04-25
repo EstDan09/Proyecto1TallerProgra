@@ -628,6 +628,8 @@ def main():
                 gradaB3col = canvasGame.bbox(gradaB3)
                 gradaC1col = canvasGame.bbox(gradaC1)
 
+                ########################################################################################################
+
                 global score
                 global lives
                 global jumposky
@@ -635,8 +637,9 @@ def main():
                 global udosdos
                 global utres
 
-                "Dama"
+                ########################################################################################################
 
+                "Dama"
                 if damacol[0] < princol[0] < damacol[2] and damacol[1] < princol[3] < damacol[3]:
                     score += 900
                     scoreShow.configure(text="SCORE: " + str(score))
@@ -644,8 +647,7 @@ def main():
                     gamewindow.destroy()
                     game2()
 
-                #Mono
-
+                    "Mono"
                 elif moncol[0] < princol[0] < moncol[2] and moncol[1] < princol[3] < moncol[3]:
                     score -= 250
                     lives -= 1
