@@ -109,6 +109,12 @@ def playIntro():
     pygame.mixer.music.load("introReal.mp3")
     pygame.mixer.music.play(loops=-1)
 
+def playOutro():
+    pygame.init()
+    pygame.mixer.music.load("bye.mp3")
+    pygame.mixer.music.play(loops=0)
+
+
 ########################################################################################################################
 
 "Ventana de Menu"
@@ -892,7 +898,7 @@ def main():
 
             "Ventana cuando se pierde en el nivel 1"
         else:
-            playIntro()
+            playOutro()
             lives = 3 #esto nos permite volver a tener 3 vidas
             endwindow1 = tk.Toplevel()
             endwindow1.title("You Lost!")
@@ -1752,7 +1758,7 @@ def main():
             gamewindow2.mainloop()
 
         else:
-            playSound1()
+            playOutro()
             lives = 3
             endwindow2 = tk.Toplevel()
             endwindow2.title("You Lost!")
@@ -1802,7 +1808,7 @@ def main():
 
     "Ventana para manejar pantalla de victoria"
     def congrats():
-        playSound1()
+        playIntro()
         global score
         global lives
         lives = 3
@@ -1856,7 +1862,7 @@ def main():
 
     "Ventana para Salon de la Fama"
     def leaderboard():
-        playSound1()
+        playIntro()
         scorewindow = tk.Toplevel()
         scorewindow.title("Hall of Death")
         scorewindow.geometry("1080x720")
