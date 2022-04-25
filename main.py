@@ -27,12 +27,26 @@ colorpool = [color5, color4, color3, color2, color1]
 
 ########################################################################################################################
 
+conf = open("config.txt", "r")
+conf1 = conf.read()
+read2 = conf1.split(",")
+
+#Variables de Config
+global realLives
+realLives = int(read2[0])
+global damaPoints
+damaPoints = int(read2[1])
+global platPoints
+platPoints = int(read2[2])
+global enemyPoints
+enemyPoints = int(read2[3])
+
 # Variable de Puntuacion
 global score
 score = 0
 # Variable de Vida
 global lives
-lives = 3
+lives = realLives
 # Variable que impide doble salto
 global jumposky
 jumposky = 0
@@ -53,6 +67,7 @@ global dcuatro
 dcuatro = 0
 global dcinco
 dcinco = 0
+# VAariables de Puntos
 
 ########################################################################################################################
 
@@ -157,7 +172,7 @@ def main():
         global dcuatro
         global dcinco
         score = 0
-        lives = 3
+        lives = realLives
         udosuno = 0
         udosdos = 0
         utres = 0
@@ -306,9 +321,9 @@ def main():
                     if (2 < (pos[1] - enemy[3]) < 35) and \
                             ((1 < abs(pos[0] - enemy[0]) < 10) or
                              (1 < abs(pos[2] - enemy[2]) < 10)):
-                        score += 100
+                        score += enemyPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: +100 enemy points!",
+                        scorePlus.configure(text="Last Score Points Gained: " +str(enemyPoints)+" enemy points!",
                                             bg=random.choice(colorpool))
                         gamewindow.after(100, self.movement1)
 
@@ -434,9 +449,9 @@ def main():
                     if ((pos[1] - enemy[3]) > 2 and (pos[1] - enemy[3]) < 35) and \
                             ((abs(pos[0] - enemy[0]) > 1 and abs(pos[0] - enemy[0]) < 10) or
                              (abs(pos[2] - enemy[2]) > 1 and abs(pos[2] - enemy[2]) < 10)):
-                        score += 100
+                        score += enemyPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: +100 enemy points!",
+                        scorePlus.configure(text="Last Score Points Gained:" +str(enemyPoints)+"enemy points!",
                                             bg=random.choice(colorpool))
                         gamewindow.after(100, self.movement1)
 
@@ -647,7 +662,7 @@ def main():
 
                 # Dama
                 if damacol[0] < princol[0] < damacol[2] and damacol[1] < princol[3] < damacol[3]:
-                    score += 900
+                    score += damaPoints
                     scoreShow.configure(text="SCORE: " + str(score))
                     time.sleep(1.0)
                     gamewindow.destroy()
@@ -680,9 +695,9 @@ def main():
                         and plat2col[0] < princol[2] < plat2col[2]:
                     jumposky += 1
                     if udosuno == 0:
-                        score += 500
+                        score += platPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: +500 platform points!",
+                        scorePlus.configure(text="Last Score Points Gained: +"+str(platPoints)+" platform points!",
                                             bg=random.choice(colorpool))
                         udosuno += 1
                     canvasGame.move(principal, 0, -2)
@@ -708,9 +723,9 @@ def main():
                         and plat3col[0] < princol[2] < plat3col[2]:
                     jumposky += 1
                     if udosdos == 0:
-                        score += 500
+                        score += platPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: +500 platform points!",
+                        scorePlus.configure(text="Last Score Points Gained: +"+str(platPoints)+" platform points!",
                                             bg=random.choice(colorpool))
                         udosdos += 1
                     canvasGame.move(principal, 0, -2)
@@ -736,9 +751,9 @@ def main():
                         and plat4col[0] < princol[2] < plat4col[2]:
                     jumposky += 1
                     if utres == 0:
-                        score += 1000
+                        score += platPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: +1000 platform points!",
+                        scorePlus.configure(text="Last Score Points Gained: +"+str(platPoints)+" platform points!",
                                             bg=random.choice(colorpool))
                         utres += 1
                     canvasGame.move(principal, 0, -2)
@@ -898,7 +913,7 @@ def main():
         # Ventana cuando se pierde en el nivel 1
         else:
             playOutro()
-            lives = 3  # esto nos permite volver a tener 3 vidas
+            lives = realLives
             endwindow1 = tk.Toplevel()
             endwindow1.title("You Lost!")
             endwindow1.geometry("1080x720")
@@ -1052,9 +1067,9 @@ def main():
                     if (2 < (pos[1] - enemy[3]) < 35) and \
                             ((1 < abs(pos[0] - enemy[0]) < 10) or
                              (1 < abs(pos[2] - enemy[2]) < 10)):
-                        score += 200
+                        score += enemyPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: +200 enemy points!",
+                        scorePlus.configure(text="Last Score Points Gained: " +str(enemyPoints)+" enemy points!",
                                             bg=random.choice(colorpool))
                         if enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[2] < enemy[2]:
                             score -= 15
@@ -1207,9 +1222,9 @@ def main():
                     if (2 < (pos[1] - enemy[3]) < 35) and \
                             ((1 < abs(pos[0] - enemy[0]) < 10) or
                              (1 < abs(pos[2] - enemy[2]) < 10)):
-                        score += 250
+                        score += enemyPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: +250 enemy points!",
+                        scorePlus.configure(text="Last Score Points Gained: " +str(enemyPoints)+" enemy points!",
                                             bg=random.choice(colorpool))
                         gamewindow2.after(100, self.movement1)
                         if enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[2] < enemy[2]:
@@ -1416,7 +1431,7 @@ def main():
 
                 # Dama
                 if damacol[0] < princol[0] < damacol[2] and damacol[1] < princol[3] < damacol[3]:
-                    score += 900
+                    score += damaPoints
                     scoreShow.configure(text="SCORE: " + str(score))
                     time.sleep(1.0)
                     gamewindow2.destroy()
@@ -1449,9 +1464,9 @@ def main():
                         and plat2col[0] < princol[2] < plat2col[2]:
                     jumposky += 1
                     if duno == 0:
-                        score += 1000
+                        score += platPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: +1000 platform points!",
+                        scorePlus.configure(text="Last Score Points Gained: "+str(platPoints)+" platform points!",
                                             bg=random.choice(colorpool))
                         duno += 1
                     canvasGame.move(principal, 0, -2)
@@ -1477,9 +1492,9 @@ def main():
                         and plat3col[0] < princol[2] < plat3col[2]:
                     jumposky += 1
                     if ddos == 0:
-                        score += 1100
+                        score += platPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: +1100 platform points!",
+                        scorePlus.configure(text="Last Score Points Gained: "+str(platPoints)+" platform points!",
                                             bg=random.choice(colorpool))
                         ddos += 1
                     canvasGame.move(principal, 0, -2)
@@ -1505,9 +1520,9 @@ def main():
                         and plat4col[0] < princol[2] < plat4col[2]:
                     jumposky += 1
                     if dtres == 0:
-                        score += 1200
+                        score += platPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: +1200 platform points!",
+                        scorePlus.configure(text="Last Score Points Gained: "+str(platPoints)+" platform points!",
                                             bg=random.choice(colorpool))
                         dtres += 1
                     canvasGame.move(principal, 0, -2)
@@ -1533,9 +1548,9 @@ def main():
                         and plat5col[0] < princol[2] < plat5col[2]:
                     jumposky += 1
                     if dcuatro == 0:
-                        score += 1300
+                        score += platPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: +1300 platform points!",
+                        scorePlus.configure(text="Last Score Points Gained: "+str(platPoints)+" platform points!",
                                             bg=random.choice(colorpool))
                         dcuatro += 1
                     canvasGame.move(principal, 0, -2)
@@ -1561,9 +1576,9 @@ def main():
                         and plat6col[0] < princol[2] < plat6col[2]:
                     jumposky += 1
                     if dcinco == 0:
-                        score += 2000
+                        score += platPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: +2000 platform points!",
+                        scorePlus.configure(text="Last Score Points Gained: "+str(platPoints)+" platform points!",
                                             bg=random.choice(colorpool))
                         dcinco += 1
                     canvasGame.move(principal, 0, -2)
@@ -1743,7 +1758,7 @@ def main():
 
         else:
             playOutro()
-            lives = 3
+            lives = realLives
             endwindow2 = tk.Toplevel()
             endwindow2.title("You Lost!")
             endwindow2.geometry("1080x720")
@@ -1796,7 +1811,7 @@ def main():
         playIntro()
         global score
         global lives
-        lives = 3
+        lives = realLives
         congrats = tk.Toplevel()
         congrats.title("Congrats!")
         congrats.geometry("1080x720")
@@ -1901,6 +1916,80 @@ def main():
 
     ####################################################################################################################
 
+    def configurations():
+        playIntro()
+        configuWin = tk.Toplevel()
+        configuWin.title("Config")
+        configuWin.geometry("1080x720")
+        configuWin.iconbitmap("Dice-icon.ico")
+        configuWin.resizable(False, False)
+        configuWin.configure(background="black")
+
+        ################################################################################################################
+
+        canvasCon = tk.Canvas(configuWin, width=1080, height=720, borderwidth=0, highlightthickness=0, bg="black")
+        canvasCon.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+
+        ################################################################################################################
+
+        # Entry de Config
+        entryConfig1 = tk.Entry(canvasCon)
+        entryConfig1.place(x=475, y=305)
+        entryConfig2 = tk.Entry(canvasCon)
+        entryConfig2.place(x=475, y=325)
+        entryConfig3 = tk.Entry(canvasCon)
+        entryConfig3.place(x=475, y=345)
+        entryConfig4 = tk.Entry(canvasCon)
+        entryConfig4.place(x=475, y=365)
+
+        ################################################################################################################
+
+        def configdata():
+            global score
+            global realLives
+            global damaPoints
+            global platPoints
+            global enemyPoints
+            confi = open("config.txt", "w")
+            confi.write(str(entryConfig1.get()) + "," + str(entryConfig2.get())+","+str(entryConfig3.get())+","
+                         +str(entryConfig4.get()))
+            confi.close()
+
+            conf = open("config.txt", "r")
+            conf1 = conf.read()
+            read2 = conf1.split(",")
+
+            realLives = int(read2[0])
+            damaPoints = int(read2[1])
+            platPoints = int(read2[2])
+            enemyPoints = int(read2[3])
+
+            configuWin.destroy()
+        ################################################################################################################
+
+        labelVidas = tk.Label(canvasCon, text="How Many Lives Do You Want? We Recommend 3", font=("Arial", 12),
+                              bg="black", fg="white")
+        labelVidas.place(x=100, y=304.5)
+        labelPuntosDama = tk.Label(canvasCon, text="How Many Pts Do You Want For Rescuing Chihiro?", font=("Arial", 12),
+                              bg="black", fg="white")
+        labelPuntosDama.place(x=100, y=324.5)
+        labelPuntosPlat = tk.Label(canvasCon, text="How Many Pts Do You Want For Reaching a Platform?", font=("Arial", 12),
+                                   bg="black", fg="white")
+        labelPuntosPlat.place(x=92, y=344.5)
+        labelPuntosEnemy = tk.Label(canvasCon, text="How Many Pts Do You Want For Jumping Over Hazards?", font=("Arial", 12),
+                                   bg="black", fg="white")
+        labelPuntosEnemy.place(x=77, y=364.5)
+
+        ################################################################################################################
+
+        botonSave = tk.Button(canvasCon, text="Save Your Stats!", command=configdata)
+        botonSave.place(x=675, y=315, anchor=tk.CENTER)
+
+        ################################################################################################################
+
+        configuWin.mainloop()
+
+
     # Canvas
     canvasMenu = tk.Canvas(menuwindow, width=1080, height=720, borderwidth=0, highlightthickness=0, bg="black")
     canvasMenu.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
@@ -1912,6 +2001,8 @@ def main():
     botonStart.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
     botonScore = tk.Button(canvasMenu, text="Hall of Death", command=leaderboard)
     botonScore.place(relx=0.5, rely=0.6, anchor=tk.CENTER)
+    botonScore = tk.Button(canvasMenu, text="Configurations", command=configurations)
+    botonScore.place(relx=0.5, rely=0.7, anchor=tk.CENTER)
 
     ####################################################################################################################
 
