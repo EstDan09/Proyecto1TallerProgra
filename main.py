@@ -1372,7 +1372,7 @@ def main():
 
                 def score(event):
                     x = 0
-                    y = 5
+                    y = 2
                     edgeReached()
                     canvasGame.move(principal, x, y)
                     collision()
