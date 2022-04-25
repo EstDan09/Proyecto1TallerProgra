@@ -4,7 +4,8 @@ Monkey: The Last Dream
 
 """
 ########################################################################################################################
-"Librerias"
+
+# Librerias
 import tkinter as tk
 from PIL import ImageTk, Image
 import shelve
@@ -16,7 +17,7 @@ from natsort import natsorted
 
 ########################################################################################################################
 
-"Colores"
+# Colores
 color1 = "blue"
 color2 = "green"
 color3 = "gray"
@@ -26,16 +27,16 @@ colorpool = [color5, color4, color3, color2, color1]
 
 ########################################################################################################################
 
-"Variable de Puntuacion"
+# Variable de Puntuacion
 global score
 score = 0
-"Variable de Vida"
+# Variable de Vida
 global lives
 lives = 3
-"Variable que impide doble salto"
+# Variable que impide doble salto
 global jumposky
 jumposky = 0
-"Variables para controlar puntos por plataforma"
+# Variables para controlar puntos por plataforma
 global udosuno
 udosuno = 0
 global udosdos
@@ -55,38 +56,38 @@ dcinco = 0
 
 ########################################################################################################################
 
-"Imagen Personaje Principal"
+# Imagen Personaje Principal
 imagePrin = Image.open("toto.png")
-"Imagen Dama"
+# Imagen Dama
 imageDama = Image.open("chi.png")
-"Imagen MonoMalo"
+# Imagen MonoMalo
 imageMonk = Image.open("demonmonkey.png")
-"Imagen Obstaculos"
+# Imagen Obstaculos
 imageObs = Image.open("obs1.png")
 imageFlame = Image.open("fuego.jpg")
-"Imagen Plataforma y Gradas"
+# Imagen Plataforma y Gradas
 imagePlat1 = Image.open("platA.png")
 
 ########################################################################################################################
 
-"SplashAnimation (Se usaron las ideas presentadas por Codemy.com, de generar el splash por medio de una ventana)"
+# SplashAnimation (Se usaron las ideas presentadas por Codemy.com, de generar el splash por medio de una ventana)
 anim = tk.Tk()
 anim.geometry("1080x720")
 anim.geometry("+250+50")
-anim.overrideredirect(True) #eliminar borde
+anim.overrideredirect(True)  # eliminar borde
 anim.configure(background="black")
-titulo1 = tk.Label(anim, text= "The Monkey is the key...but he is also death...a herald of doom...",
-                   font= "Papyrus", bg= "black", fg= "white")
+titulo1 = tk.Label(anim, text="The Monkey is the key...but he is also death...a herald of doom...",
+                   font="Papyrus", bg="black", fg="white")
 titulo1.pack(pady=20)
-titulo2 = tk.Label(anim, text= "...can you KILL him...he is no longer a monkey, for he is the DEMON MONKEY!",
-                   font= "Papyrus", bg= "black", fg= "white")
+titulo2 = tk.Label(anim, text="...can you KILL him...he is no longer a monkey, for he is the DEMON MONKEY!",
+                   font="Papyrus", bg="black", fg="white")
 titulo2.pack(pady=25)
-titulo3 = tk.Label(anim, text= "Monkey: The Last Dream", font= ("Papyrus", 40), bg= "black", fg= "white")
+titulo3 = tk.Label(anim, text="Monkey: The Last Dream", font=("Papyrus", 40), bg="black", fg="white")
 titulo3.pack(pady=40)
-titulo4 = tk.Label(anim, text= "Developed by Esteban Secaida", font= ("Papyrus", 40), bg= "black", fg= "white")
+titulo4 = tk.Label(anim, text="Developed by Esteban Secaida", font=("Papyrus", 40), bg="black", fg="white")
 titulo4.pack(pady=50)
-titulo5 = tk.Label(anim, text= "A not that bad-looking young man that loves to eat",
-                   font= ("Papyrus", 15), bg= "black", fg= "white")
+titulo5 = tk.Label(anim, text="Soundtrack by TWICE and Julieta Venegas",
+                   font=("Papyrus", 15), bg="black", fg="white")
 titulo5.pack(pady=40)
 imageYocanvas = tk.Canvas(anim, width=200, height=446, borderwidth=0, highlightthickness=0, bg="white")
 imageYocanvas.place(x=850, y=500)
@@ -103,12 +104,13 @@ imageHcanvas.create_image(215, 100, image=nuevoH, anchor=tk.E)
 
 ########################################################################################################################
 
-"Funcion de sonido para ña animacion splash"
+# Funcion de sonido para la animacion splash"
 def playIntro():
     pygame.init()
     pygame.mixer.music.load("introReal.mp3")
     pygame.mixer.music.play(loops=-1)
 
+# Alternativa de sonido para otras pantallas
 def playOutro():
     pygame.init()
     pygame.mixer.music.load("bye.mp3")
@@ -117,9 +119,9 @@ def playOutro():
 
 ########################################################################################################################
 
-"Ventana de Menu"
+# Ventana de Menu
 def main():
-    "Parametros de Ventana"
+    # Parametros de Ventana
     anim.destroy()
     playIntro()
     menuwindow = tk.Tk()
@@ -128,11 +130,11 @@ def main():
     menuwindow.title("Monkey: The Last Dream")
     menuwindow.iconbitmap("Dice-icon.ico")
     menuwindow.resizable(False, False)
-    menuwindow.configure(background = "black")
+    menuwindow.configure(background="black")
 
     ####################################################################################################################
 
-    "Función para la musica de mi juego"
+    # Función para la musica de mi juego
     def playSound1():
         pygame.init()
         pygame.mixer.music.load("soundtrack.mp3")
@@ -141,11 +143,9 @@ def main():
 
     ####################################################################################################################
 
-    "Ventana de Validación antes de entrar al nivel"
+    # Ventana de Validación antes de entrar al nivel
     def startwindow():
-
-        ################################################################################################################
-        "Resetear Variables Globales"
+        # Resetear Variables Globales
         global score
         global lives
         global udosuno
@@ -169,7 +169,7 @@ def main():
 
         ################################################################################################################
 
-        "Parametros Ventana"
+        # Parametros Ventana
         startWin = tk.Tk()
         startWin.geometry("600x600")
         startWin.geometry("+475+100")
@@ -180,13 +180,13 @@ def main():
 
         ################################################################################################################
 
-        "Canvas"
+        # Canvas
         canvasPepe = tk.Canvas(startWin, width=600, height=600, borderwidth=0, highlightthickness=0, bg="black")
         canvasPepe.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
         ################################################################################################################
 
-        "Funcion efecto mono loco"
+        # Funcion efecto mono loco
         def runCreepy():
             image = Image.open("pepemujica.png")
             resized = image.resize((600, 600), Image.ANTIALIAS)
@@ -200,14 +200,14 @@ def main():
 
         ################################################################################################################
 
-        "Funcion para entrar al juego"
+        # Funcion para entrar al juego
         def nextStep():
             startWin.destroy()
             game1()
 
         ################################################################################################################
 
-        "Boton"
+        # Botón
         botonN1 = tk.Button(startWin, text="Enter the Realm of the Monkey!!!!!", command=nextStep)
         botonN1.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
@@ -217,17 +217,17 @@ def main():
 
     ####################################################################################################################
 
-    "Ventana para manejar el nivel 1"
+    # Ventana para manejar el nivel 1
     def game1():
 
         ################################################################################################################
-        "LLamada a funciones globales"
+        # LLamada a funciones globales
         global score
         global lives
 
         ################################################################################################################
 
-        "Entrar al nivel 1 si cumple el requisito de vidas"
+        # Entrar al nivel 1 si cumple el requisito de vidas
         if lives >= 1:
             playSound1()
             gamewindow = tk.Toplevel()
@@ -240,44 +240,44 @@ def main():
 
             ############################################################################################################
 
-            "Canvas Principal"
+            # Canvas Principal
             canvasGame = tk.Canvas(gamewindow, width=1080, height=720, borderwidth=0, highlightthickness=0, bg="black")
             canvasGame.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
             ############################################################################################################
 
-            "Imagen Personaje Principal"
+            # Imagen Personaje Principal
             resizedPrin = imagePrin.resize((50, 75), Image.ANTIALIAS)
             nuevoPrin = ImageTk.PhotoImage(resizedPrin, master=canvasGame)
             principal = canvasGame.create_image(125, 600, image=nuevoPrin, anchor=tk.NW)
 
-            "Imagen Dama"
+            # Imagen Dama
             resizedDama = imageDama.resize((75, 75), Image.ANTIALIAS)
             nuevoDama = ImageTk.PhotoImage(resizedDama, master=canvasGame)
             dama = canvasGame.create_image(225, 163, image=nuevoDama, anchor=tk.NW)
 
-            "Imagen MonoMalo"
+            # Imagen MonoMalo
             resizedMonk = imageMonk.resize((125, 125), Image.ANTIALIAS)
             nuevoMonk = ImageTk.PhotoImage(resizedMonk, master=canvasGame)
             monkeyDemon = canvasGame.create_image(10, 150, image=nuevoMonk, anchor=tk.NW)
 
-            "Imagen Obstaculo"
+            # Imagen Obstaculo
             resizedObs = imageObs.resize((38, 38), Image.ANTIALIAS)
             nuevoObs = ImageTk.PhotoImage(resizedObs, master=canvasGame)
             resizedFlame = imageFlame.resize((38, 38), Image.ANTIALIAS)
             nuevoFlame = ImageTk.PhotoImage(resizedFlame, master=canvasGame)
 
-            "Platformas"
+            # Platformas
             resizedPlat1 = imagePlat1.resize((1080, 50), Image.ANTIALIAS)
             resizedPlat2 = imagePlat1.resize((450, 50), Image.ANTIALIAS)
-            nuevoPlat1 = ImageTk.PhotoImage(resizedPlat1, master= canvasGame)
-            plat1 = canvasGame.create_image(0, 675, image= nuevoPlat1, anchor=tk.NW)
+            nuevoPlat1 = ImageTk.PhotoImage(resizedPlat1, master=canvasGame)
+            plat1 = canvasGame.create_image(0, 675, image=nuevoPlat1, anchor=tk.NW)
             nuevoPlat2 = ImageTk.PhotoImage(resizedPlat2, master=canvasGame)
             plat2 = canvasGame.create_image(0, 475, image=nuevoPlat2, anchor=tk.NW)
             plat3 = canvasGame.create_image(545, 475, image=nuevoPlat1, anchor=tk.NW)
-            plat4 = canvasGame.create_image(-100, 275, image= nuevoPlat1, anchor=tk.NW)
+            plat4 = canvasGame.create_image(-100, 275, image=nuevoPlat1, anchor=tk.NW)
 
-            "Gradas"
+            # Gradas
             resizedGradA1 = imagePlat1.resize((52, 10), Image.ANTIALIAS)
             resizedGradA2 = imagePlat1.resize((200, 10), Image.ANTIALIAS)
             nuevoGradA1 = ImageTk.PhotoImage(resizedGradA1, master=canvasGame)
@@ -288,11 +288,11 @@ def main():
             gradaB2 = canvasGame.create_image(1000, 350, image=nuevoGradA1, anchor=tk.NW)
             gradaB3 = canvasGame.create_image(1000, 410, image=nuevoGradA1, anchor=tk.NW)
             nuevoGradA2 = ImageTk.PhotoImage(resizedGradA2, master=canvasGame)
-            gradaC1 = canvasGame.create_image(250, 225, image= nuevoGradA2, anchor=tk.NW)
+            gradaC1 = canvasGame.create_image(250, 225, image=nuevoGradA2, anchor=tk.NW)
 
             ############################################################################################################
 
-            "Comportamiento y parametros de los barriles"
+            # Comportamiento y parametros de los barriles
             class Barrel:
                 def __init__(self, canvas):
                     self.canvas = canvas
@@ -328,38 +328,38 @@ def main():
                             time.sleep(1.0)
                             gamewindow.destroy()
                             game1()
-                            canvasGame.move(principal, 0, -5) #ojo esto
+                            canvasGame.move(principal, 0, -5)  # ojo esto
                         elif pos[0] <= 980 and pos[1] == 238:
-                            #print("P"+str(pos))
-                            #print("T"+str(enemy))
+                            # print("P"+str(pos))
+                            # print("T"+str(enemy))
                             barrelx = 20
                             barrely = 0
                             canvasGame.move(self.obstaculo, barrelx, barrely)
                             gamewindow.update()
                             gamewindow.after(100, self.movement1)
                         elif pos[0] >= 980 and pos[1] <= 420:
-                            #print("2" + str(pos))
+                            # print("2" + str(pos))
                             barrelx = 0
                             barrely = 20
                             canvasGame.move(self.obstaculo, barrelx, barrely)
                             gamewindow.update()
                             gamewindow.after(100, self.movement1)
                         elif pos[0] >= 480 and pos[1] >= 420:
-                            #print("3" + str(pos))
+                            # print("3" + str(pos))
                             barrelx = -20
                             barrely = 0
                             canvasGame.move(self.obstaculo, barrelx, barrely)
                             gamewindow.update()
                             gamewindow.after(100, self.movement1)
                         elif pos[0] <= 480 and pos[1] <= 620:
-                            #print("4" + str(pos))
+                            # print("4" + str(pos))
                             barrelx = 0
                             barrely = 20
                             canvasGame.move(self.obstaculo, barrelx, barrely)
                             gamewindow.update()
                             gamewindow.after(100, self.movement1)
                         elif pos[0] >= -50 and pos[1] >= 620:
-                            #print("5" + str(pos))
+                            # print("5" + str(pos))
                             barrelx = -20
                             barrely = 0
                             canvasGame.move(self.obstaculo, barrelx, barrely)
@@ -382,45 +382,45 @@ def main():
                             time.sleep(1.0)
                             gamewindow.destroy()
                             game1()
-                            canvasGame.move(principal, 0, -5) #ojo esto
+                            canvasGame.move(principal, 0, -5)  # ojo esto
                         elif pos[0] <= 980 and pos[1] == 238:
-                            #print("P"+str(pos))
-                            #print("T"+str(enemy))
+                            # print("P"+str(pos))
+                            # print("T"+str(enemy))
                             barrelx = 20
                             barrely = 0
                             canvasGame.move(self.obstaculo, barrelx, barrely)
                             gamewindow.update()
                             gamewindow.after(100, self.movement1)
                         elif pos[0] >= 980 and pos[1] <= 420:
-                            #print("2" + str(pos))
+                            # print("2" + str(pos))
                             barrelx = 0
                             barrely = 20
                             canvasGame.move(self.obstaculo, barrelx, barrely)
                             gamewindow.update()
                             gamewindow.after(100, self.movement1)
                         elif pos[0] >= 480 and pos[1] >= 420:
-                            #print("3" + str(pos))
+                            # print("3" + str(pos))
                             barrelx = -20
                             barrely = 0
                             canvasGame.move(self.obstaculo, barrelx, barrely)
                             gamewindow.update()
                             gamewindow.after(100, self.movement1)
                         elif pos[0] <= 480 and pos[1] <= 620:
-                            #print("4" + str(pos))
+                            # print("4" + str(pos))
                             barrelx = 0
                             barrely = 20
                             canvasGame.move(self.obstaculo, barrelx, barrely)
                             gamewindow.update()
                             gamewindow.after(100, self.movement1)
                         elif pos[0] >= -50 and pos[1] >= 620:
-                            #print("5" + str(pos))
+                            # print("5" + str(pos))
                             barrelx = -20
                             barrely = 0
                             canvasGame.move(self.obstaculo, barrelx, barrely)
                             gamewindow.update()
                             gamewindow.after(100, self.movement1)
 
-            "Comportamiento y parametros de las llamas"
+            # Comportamiento y parametros de las llamas
             class Flame:
                 def __init__(self, canvas):
                     self.canvas = canvas
@@ -564,7 +564,7 @@ def main():
 
             ############################################################################################################
 
-            "Funcion que le da gravedad al personaje principal"
+            # Funcion que le da gravedad al personaje principal en el nivel 1
             def gravity():
                 x = 0
                 y = 2
@@ -574,14 +574,14 @@ def main():
                 collision()
                 gamewindow.after(100, gravity)
 
-            "Funcion que permite el movimiento del jugador"
+            # Funcion que permite el movimiento del jugador en el nivel 1
             def move():
                 def left(event):
                     x = -10
                     y = 0
                     canvasGame.update()
                     edgeReached()
-                    canvasGame.move(principal,x, y)
+                    canvasGame.move(principal, x, y)
                     collision()
 
                 def right(event):
@@ -589,7 +589,7 @@ def main():
                     y = 0
                     canvasGame.update()
                     edgeReached()
-                    canvasGame.move(principal,x, y)
+                    canvasGame.move(principal, x, y)
                     collision()
 
                 def jump(event):
@@ -607,9 +607,8 @@ def main():
                     x = 0
                     y = 2
                     edgeReached()
-                    canvasGame.move(principal,x, y)
+                    canvasGame.move(principal, x, y)
                     collision()
-
 
                 canvasGame.bind_all("<Left>", left)
                 canvasGame.bind_all("<Right>", right)
@@ -618,12 +617,12 @@ def main():
 
             ############################################################################################################
 
-            "Colisiones"
+            # Colisiones
             def collision():
                 princol = canvasGame.bbox(principal)
                 damacol = canvasGame.bbox(dama)
                 moncol = canvasGame.bbox(monkeyDemon)
-                plat1col =canvasGame.bbox(plat1)
+                plat1col = canvasGame.bbox(plat1)
                 plat2col = canvasGame.bbox(plat2)
                 plat3col = canvasGame.bbox(plat3)
                 plat4col = canvasGame.bbox(plat4)
@@ -646,7 +645,7 @@ def main():
 
                 ########################################################################################################
 
-                "Dama"
+                # Dama
                 if damacol[0] < princol[0] < damacol[2] and damacol[1] < princol[3] < damacol[3]:
                     score += 900
                     scoreShow.configure(text="SCORE: " + str(score))
@@ -654,7 +653,7 @@ def main():
                     gamewindow.destroy()
                     game2()
 
-                    "Mono"
+                # Mono
                 elif moncol[0] < princol[0] < moncol[2] and moncol[1] < princol[3] < moncol[3]:
                     score -= 250
                     lives -= 1
@@ -664,7 +663,7 @@ def main():
                     gamewindow.destroy()
                     game1()
 
-                    "Primera Plataforma"
+                # Primera Plataforma
                 elif plat1col[1] < princol[3] < plat1col[3] and plat1col[0] < princol[0] < plat1col[2] \
                         and plat1col[0] < princol[2] < plat1col[2]:
                     jumposky += 1
@@ -676,7 +675,7 @@ def main():
                     jumposky += 1
                     canvasGame.move(principal, 0, -2)
 
-                    "Segunda Plataforma"
+                # Segunda Plataforma
                 elif plat2col[1] < princol[3] < plat2col[3] and plat2col[0] < princol[0] < plat2col[2] \
                         and plat2col[0] < princol[2] < plat2col[2]:
                     jumposky += 1
@@ -701,10 +700,10 @@ def main():
                 elif plat2col[1] < princol[1] < plat2col[3] and plat2col[0] < princol[2] < plat2col[2]:
                     canvasGame.move(principal, 0, 20)
                 elif princol[1] < plat2col[1] < princol[3] and princol[0] < plat2col[2] < princol[2] and \
-                        princol[1] < plat2col[3] < princol[3]: #Colicion con la parte derecha
+                        princol[1] < plat2col[3] < princol[3]:  # Colicion con la parte derecha
                     canvasGame.move(principal, 10, 0)
 
-                    "Tercera Plataforma"
+                # Tercera Plataforma
                 elif plat3col[1] < princol[3] < plat3col[3] and plat3col[0] < princol[0] < plat3col[2] \
                         and plat3col[0] < princol[2] < plat3col[2]:
                     jumposky += 1
@@ -732,7 +731,7 @@ def main():
                         princol[1] < plat3col[3] < princol[3]:  # Colicion con la parte izquierda
                     canvasGame.move(principal, -10, 0)
 
-                    "Cuarta Plataforma"
+                # Cuarta Plataforma
                 elif plat4col[1] < princol[3] < plat4col[3] and plat4col[0] < princol[0] < plat4col[2] \
                         and plat4col[0] < princol[2] < plat4col[2]:
                     jumposky += 1
@@ -760,7 +759,7 @@ def main():
                         princol[1] < plat4col[3] < princol[3]:
                     canvasGame.move(principal, 10, 0)
 
-                    "GradaA1"
+                # GradaA1
                 elif gradaA1col[1] < princol[3] < gradaA1col[3] and gradaA1col[0] < princol[0] < gradaA1col[2] \
                         and gradaA1col[0] < princol[2] < gradaA1col[2]:
                     jumposky += 1
@@ -772,7 +771,7 @@ def main():
                     jumposky += 1
                     canvasGame.move(principal, 0, -2)
 
-                    "GradaA2"
+                # GradaA2
                 elif gradaA2col[1] < princol[3] < gradaA2col[3] and gradaA2col[0] < princol[0] < gradaA2col[2] \
                         and gradaA2col[0] < princol[2] < gradaA2col[2]:
                     jumposky += 1
@@ -784,7 +783,7 @@ def main():
                     jumposky += 1
                     canvasGame.move(principal, 0, -2)
 
-                    "GradaA3"
+                # GradaA3
                 elif gradaA3col[1] < princol[3] < gradaA3col[3] and gradaA3col[0] < princol[0] < gradaA3col[2] \
                         and gradaA3col[0] < princol[2] < gradaA3col[2]:
                     jumposky += 1
@@ -796,7 +795,7 @@ def main():
                     jumposky += 1
                     canvasGame.move(principal, 0, -2)
 
-                    "GradaB1"
+                # GradaB1
                 elif gradaB1col[1] < princol[3] < gradaB1col[3] and gradaB1col[0] < princol[0] < gradaB1col[2] \
                         and gradaB1col[0] < princol[2] < gradaB1col[2]:
                     jumposky += 1
@@ -808,7 +807,7 @@ def main():
                     jumposky += 1
                     canvasGame.move(principal, 0, -2)
 
-                    "GradaB2"
+                # GradaB2
                 elif gradaB2col[1] < princol[3] < gradaB2col[3] and gradaB2col[0] < princol[0] < gradaB2col[2] \
                         and gradaB2col[0] < princol[2] < gradaB2col[2]:
                     jumposky += 1
@@ -820,7 +819,7 @@ def main():
                     jumposky += 1
                     canvasGame.move(principal, 0, -2)
 
-                    "GradaB3"
+                # GradaB3
                 elif gradaB3col[1] < princol[3] < gradaB3col[3] and gradaB3col[0] < princol[0] < gradaB3col[2] \
                         and gradaB3col[0] < princol[2] < gradaB3col[2]:
                     jumposky += 1
@@ -832,7 +831,7 @@ def main():
                     jumposky += 1
                     canvasGame.move(principal, 0, -2)
 
-                    "GradaC1"
+                # GradaC1
                 elif gradaC1col[1] < princol[3] < gradaC1col[3] and gradaC1col[0] < princol[0] < gradaC1col[2] \
                         and gradaB3col[0] < princol[2] < gradaB3col[2]:
                     jumposky += 1
@@ -846,7 +845,7 @@ def main():
 
             ############################################################################################################
 
-            "Pesonaje no se salga de la ventana"
+            # Personaje no se salga de la ventana
             def edgeReached():
                 boundary = canvasGame.bbox(principal)
                 prinleft = boundary[0]
@@ -864,25 +863,25 @@ def main():
 
             ############################################################################################################
 
-            "Puntaucion"
-            scoreShow = tk.Label(canvasGame, text= "SCORE: "+str(score), bg= "#072E60", fg= "white")
-            scoreShow.place(x = 950, y = 25)
+            # Puntuación
+            scoreShow = tk.Label(canvasGame, text="SCORE: " + str(score), bg="#072E60", fg="white")
+            scoreShow.place(x=950, y=25)
 
             ############################################################################################################
 
-            "Vidas"
-            livesShow = tk.Label(canvasGame, text= "LIVES: "+str(lives), bg= "black", fg="white")
+            # Vidas
+            livesShow = tk.Label(canvasGame, text="LIVES: " + str(lives), bg="black", fg="white")
             livesShow.place(x=100, y=25)
 
             ############################################################################################################
 
-            "Puntos que gano"
-            scorePlus = tk.Label(canvasGame, text="POINTS GAINED THIS LEVEL!: 0", bg= "black", fg= "white")
+            # Puntos que gano
+            scorePlus = tk.Label(canvasGame, text="POINTS GAINED THIS LEVEL!: 0", bg="black", fg="white")
             scorePlus.place(x=650, y=25)
 
             ############################################################################################################
 
-            "Nivel"
+            # Nivel
             showLevel = tk.Label(canvasGame, text="LEVEL 1", bg="black", fg="white")
             showLevel.place(x=400, y=25)
 
@@ -896,10 +895,10 @@ def main():
 
             ############################################################################################################
 
-            "Ventana cuando se pierde en el nivel 1"
+        # Ventana cuando se pierde en el nivel 1
         else:
             playOutro()
-            lives = 3 #esto nos permite volver a tener 3 vidas
+            lives = 3  # esto nos permite volver a tener 3 vidas
             endwindow1 = tk.Toplevel()
             endwindow1.title("You Lost!")
             endwindow1.geometry("1080x720")
@@ -909,13 +908,13 @@ def main():
 
             ############################################################################################################
 
-            "Canvas"
+            # Canvas
             canvasL1 = tk.Canvas(endwindow1, width=1080, height=720, borderwidth=0, highlightthickness=0, bg="black")
             canvasL1.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
             ############################################################################################################
 
-            "Imagen"
+            # Imagen
             jordan = Image.open("jordan.jpg")
             jordanres = jordan.resize((1080, 720), Image.ANTIALIAS)
             jordanw = ImageTk.PhotoImage(jordanres, master=canvasMenu)
@@ -923,37 +922,38 @@ def main():
 
             ############################################################################################################
 
-            "Entry de Jugador"
+            # Entry de Jugador
             entryName = tk.Entry(canvasL1)
             entryName.place(x=475, y=305)
 
             ############################################################################################################
 
-            "Funcion para guardar puntuación"
+            # Funcion para guardar puntuación
+
             def savedata():
                 global score
                 scores = open("scores.txt", "a")
-                scores.write(str(score)+" - "+str(entryName.get())+",")
+                scores.write(str(score) + " - " + str(entryName.get()) + ",")
                 scores.close()
                 endwindow1.destroy()
                 score = 0
 
             ############################################################################################################
 
-            "Puntuacion Final"
-            scoreShow = tk.Label(canvasL1, text="Final Score: "+ str(score), font=("Arial", "30"), bg="black",
+            # Puntuacion Final
+            scoreShow = tk.Label(canvasL1, text="Final Score: " + str(score), font=("Arial", "30"), bg="black",
                                  fg="white")
             scoreShow.place(x=350, y=150)
 
             ############################################################################################################
 
-            "Titulo"
+            # Titulo
             label1 = tk.Label(canvasL1, text="Enter Your Name: ", font=("Arial", 15), bg="black", fg="white")
             label1.place(x=300, y=300)
 
             ############################################################################################################
 
-            "Boton"
+            # Botón
             botonSave = tk.Button(canvasL1, text="Save Your Stats!", command=savedata)
             botonSave.place(x=675, y=315, anchor=tk.CENTER)
 
@@ -964,10 +964,11 @@ def main():
     ####################################################################################################################
 
     "Ventana para manejar el nivel 2"
+
     def game2():
         global score
         global lives
-        "Entrar al nivel 2 si cumple el requisito de vidas"
+        # Entrar al nivel 2 si cumple el requisito de vidas
         if lives >= 1:
             playSound1()
             gamewindow2 = tk.Tk()
@@ -988,7 +989,7 @@ def main():
             nuevoPrin = ImageTk.PhotoImage(resizedPrin, master=canvasGame)
             principal = canvasGame.create_image(125, 600, image=nuevoPrin, anchor=tk.NW)
 
-            # Imagen "Dama"
+            # Imagen Dama
             resizedDama = imageDama.resize((50, 50), Image.ANTIALIAS)
             nuevoDama = ImageTk.PhotoImage(resizedDama, master=canvasGame)
             dama = canvasGame.create_image(225, 63, image=nuevoDama, anchor=tk.NW)
@@ -998,14 +999,14 @@ def main():
             nuevoMonk = ImageTk.PhotoImage(resizedMonk, master=canvasGame)
             monkeyDemon = canvasGame.create_image(10, 75, image=nuevoMonk, anchor=tk.NW)
 
-            # ImagenObstaculo
+            # Imagen Obstáculo
             resizedObs = imageObs.resize((40, 40), Image.ANTIALIAS)
             nuevoObs = ImageTk.PhotoImage(resizedObs, master=canvasGame)
             # obs = canvasGame.create_image(500, 220, image=nuevoObs, anchor=tk.NW)
             resizedFlame = imageFlame.resize((40, 40), Image.ANTIALIAS)
             nuevoFlame = ImageTk.PhotoImage(resizedFlame, master=canvasGame)
 
-            # Platformas
+            # Plataformas
             resizedPlat1 = imagePlat1.resize((1080, 50), Image.ANTIALIAS)
             nuevoPlat1 = ImageTk.PhotoImage(resizedPlat1, master=canvasGame)
             plat1 = canvasGame.create_image(0, 675, image=nuevoPlat1, anchor=tk.NW)  # nivel1
@@ -1117,7 +1118,7 @@ def main():
                             gamewindow2.update()
                             gamewindow2.after(100, self.movement1)
                         elif pos[0] >= -50 and pos[1] >= 625:
-                            #print("7" + str(pos))
+                            # print("7" + str(pos))
                             barrelx = -20
                             barrely = 0
                             canvasGame.move(self.obstaculo, barrelx, barrely)
@@ -1186,7 +1187,7 @@ def main():
                             gamewindow2.update()
                             gamewindow2.after(100, self.movement1)
                         elif pos[0] >= -50 and pos[1] >= 625:
-                            #print("7" + str(pos))
+                            # print("7" + str(pos))
                             barrelx = -20
                             barrely = 0
                             canvasGame.move(self.obstaculo, barrelx, barrely)
@@ -1414,7 +1415,6 @@ def main():
                 global dcinco
 
                 # Dama
-
                 if damacol[0] < princol[0] < damacol[2] and damacol[1] < princol[3] < damacol[3]:
                     score += 900
                     scoreShow.configure(text="SCORE: " + str(score))
@@ -1423,7 +1423,6 @@ def main():
                     congrats()
 
                 # Mono
-
                 elif moncol[0] < princol[0] < moncol[2] and moncol[1] < princol[3] < moncol[3]:
                     score -= 250
                     lives -= 1
@@ -1434,7 +1433,6 @@ def main():
                     game2()
 
                 # Primera Plataforma
-
                 elif plat1col[1] < princol[3] < plat1col[3] and plat1col[0] < princol[0] < plat1col[2] \
                         and plat1col[0] < princol[2] < plat1col[2]:
                     jumposky += 1
@@ -1447,7 +1445,6 @@ def main():
                     canvasGame.move(principal, 0, -2)
 
                 # Segunda Plataforma
-
                 elif plat2col[1] < princol[3] < plat2col[3] and plat2col[0] < princol[0] < plat2col[2] \
                         and plat2col[0] < princol[2] < plat2col[2]:
                     jumposky += 1
@@ -1476,7 +1473,6 @@ def main():
                     canvasGame.move(principal, 10, 0)
 
                 # Tercera Plataforma
-
                 elif plat3col[1] < princol[3] < plat3col[3] and plat3col[0] < princol[0] < plat3col[2] \
                         and plat3col[0] < princol[2] < plat3col[2]:
                     jumposky += 1
@@ -1505,7 +1501,6 @@ def main():
                     canvasGame.move(principal, -10, 0)
 
                 # Cuarta Plataforma
-
                 elif plat4col[1] < princol[3] < plat4col[3] and plat4col[0] < princol[0] < plat4col[2] \
                         and plat4col[0] < princol[2] < plat4col[2]:
                     jumposky += 1
@@ -1534,7 +1529,6 @@ def main():
                     canvasGame.move(principal, 10, 0)
 
                 # Quinta Plataforma
-
                 elif plat5col[1] < princol[3] < plat5col[3] and plat5col[0] < princol[0] < plat5col[2] \
                         and plat5col[0] < princol[2] < plat5col[2]:
                     jumposky += 1
@@ -1563,7 +1557,6 @@ def main():
                     canvasGame.move(principal, 10, 0)
 
                 # Sexta Plataforma
-
                 elif plat6col[1] < princol[3] < plat6col[3] and plat6col[0] < princol[0] < plat6col[2] \
                         and plat6col[0] < princol[2] < plat6col[2]:
                     jumposky += 1
@@ -1591,9 +1584,7 @@ def main():
                         princol[1] < plat6col[3] < princol[3]:
                     canvasGame.move(principal, 10, 0)
 
-
                 # GradaA1
-
                 elif gradaA1col[1] < princol[3] < gradaA1col[3] and gradaA1col[0] < princol[0] < gradaA1col[2] \
                         and gradaA1col[0] < princol[2] < gradaA1col[2]:
                     jumposky += 1
@@ -1606,7 +1597,6 @@ def main():
                     canvasGame.move(principal, 0, -2)
 
                 # GradaA2
-
                 elif gradaA2col[1] < princol[3] < gradaA2col[3] and gradaA2col[0] < princol[0] < gradaA2col[2] \
                         and gradaA2col[0] < princol[2] < gradaA2col[2]:
                     jumposky += 1
@@ -1619,7 +1609,6 @@ def main():
                     canvasGame.move(principal, 0, -2)
 
                 # GradaA3
-
                 elif gradaA3col[1] < princol[3] < gradaA3col[3] and gradaA3col[0] < princol[0] < gradaA3col[2] \
                         and gradaA3col[0] < princol[2] < gradaA3col[2]:
                     jumposky += 1
@@ -1632,7 +1621,6 @@ def main():
                     canvasGame.move(principal, 0, -2)
 
                 # GradaB1
-
                 elif gradaB1col[1] < princol[3] < gradaB1col[3] and gradaB1col[0] < princol[0] < gradaB1col[2] \
                         and gradaB1col[0] < princol[2] < gradaB1col[2]:
                     jumposky += 1
@@ -1645,7 +1633,6 @@ def main():
                     canvasGame.move(principal, 0, -2)
 
                 # GradaB2
-
                 elif gradaB2col[1] < princol[3] < gradaB2col[3] and gradaB2col[0] < princol[0] < gradaB2col[2] \
                         and gradaB2col[0] < princol[2] < gradaB2col[2]:
                     jumposky += 1
@@ -1658,7 +1645,6 @@ def main():
                     canvasGame.move(principal, 0, -2)
 
                 # GradaB3
-
                 elif gradaB3col[1] < princol[3] < gradaB3col[3] and gradaB3col[0] < princol[0] < gradaB3col[2] \
                         and gradaB3col[0] < princol[2] < gradaB3col[2]:
                     jumposky += 1
@@ -1671,7 +1657,6 @@ def main():
                     canvasGame.move(principal, 0, -2)
 
                 # GradaC1
-
                 elif gradaC1col[1] < princol[3] < gradaC1col[3] and gradaC1col[0] < princol[0] < gradaC1col[2] \
                         and gradaB3col[0] < princol[2] < gradaB3col[2]:
                     jumposky += 1
@@ -1705,7 +1690,6 @@ def main():
                     canvasGame.move(principal, 0, -2)
 
                 # GradaD3
-
                 elif gradaD3col[1] < princol[3] < gradaD3col[3] and gradaD3col[0] < princol[0] < gradaD3col[2] \
                         and gradaD3col[0] < princol[2] < gradaD3col[2]:
                     jumposky += 1
@@ -1717,7 +1701,7 @@ def main():
                     jumposky += 1
                     canvasGame.move(principal, 0, -2)
 
-            # Pesonaje no se salga de la ventana
+            # Personaje no se salga de la ventana
             def edgeReached():
                 boundary = canvasGame.bbox(principal)
                 prinleft = boundary[0]
@@ -1789,7 +1773,7 @@ def main():
                 endwindow2.destroy()
                 score = 0
 
-            # Puntuacion Final
+            # Puntuación Final
             scoreShow = tk.Label(canvasL2, text="Final Score: " + str(score), font=("Arial", "30"), bg="black",
                                  fg="white")
             scoreShow.place(x=350, y=150)
@@ -1798,7 +1782,7 @@ def main():
             label1 = tk.Label(canvasL2, text="Enter Your Name: ", font=("Arial", 15), bg="black", fg="white")
             label1.place(x=300, y=300)
 
-            # Boton
+            # Botón
             botonSave = tk.Button(canvasL2, text="Save Your Stats!", command=savedata)
             botonSave.place(x=675, y=315, anchor=tk.CENTER)
 
@@ -1806,7 +1790,8 @@ def main():
 
     ####################################################################################################################
 
-    "Ventana para manejar pantalla de victoria"
+    # Ventana para manejar pantalla de victoria
+
     def congrats():
         playIntro()
         global score
@@ -1819,13 +1804,19 @@ def main():
         congrats.resizable(False, False)
         congrats.configure(background="black")
 
-        #Canvas
+        ################################################################################################################
+
+        # Canvas
         canvasEnd = tk.Canvas(congrats, width=1080, height=720, borderwidth=0, highlightthickness=0, bg="black")
         canvasEnd.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
+
+        ################################################################################################################
 
         # Entry de Jugador
         entryName = tk.Entry(canvasEnd)
         entryName.place(x=475, y=305)
+
+        ################################################################################################################
 
         def savedata():
             global score
@@ -1835,10 +1826,14 @@ def main():
             congrats.destroy()
             score = 0
 
-        # Puntuacion Final
+        ################################################################################################################
+
+        # Puntuación Final
         scoreShow = tk.Label(canvasEnd, text="Final Score: " + str(score), font=("Arial", "30"), bg="black",
                              fg="white")
         scoreShow.place(x=350, y=150)
+
+        ################################################################################################################
 
         # Titulo
         label1 = tk.Label(canvasEnd, text="Enter Your Name: ", font=("Arial", 15), bg="black", fg="white")
@@ -1846,13 +1841,17 @@ def main():
         labelA = tk.Label(canvasEnd, text="YOU MADE IT! THAT'S SO AMAZING!", font=("Arial", 25), bg="black", fg="white")
         labelA.place(x=250, y=100)
 
-        #Imagen
+        ################################################################################################################
+
+        # Imagen
         image = Image.open("jake.png")
         resized = image.resize((256, 256), Image.ANTIALIAS)
         nuevo = ImageTk.PhotoImage(resized, master=canvasEnd)
         produ = canvasEnd.create_image(100, 400, image=nuevo, anchor=tk.NW)
 
-        # Boton
+        ################################################################################################################
+
+        # Botón
         botonSave = tk.Button(canvasEnd, text="Save Your Stats!", command=savedata)
         botonSave.place(x=675, y=315, anchor=tk.CENTER)
 
@@ -1860,7 +1859,7 @@ def main():
 
     ####################################################################################################################
 
-    "Ventana para Salon de la Fama"
+    # Ventana para Salon de la Fama
     def leaderboard():
         playIntro()
         scorewindow = tk.Toplevel()
@@ -1870,12 +1869,16 @@ def main():
         scorewindow.resizable(False, False)
         scorewindow.configure(background="black")
 
-        show=open("scores.txt", "r")
-        read0=show.read()
-        read=read0.split(",")
-        top=natsorted(read, reverse=True)
+        ################################################################################################################
+
+        show = open("scores.txt", "r")
+        read0 = show.read()
+        read = read0.split(",")
+        top = natsorted(read, reverse=True)
         print(top)
         print(read)
+
+        ################################################################################################################
 
         label0 = tk.Label(scorewindow, text="TOP 3 CHALLENGERS", font=("Arial", 15), bg="black", fg="white")
         label0.place(x=450, y=100)
@@ -1892,25 +1895,27 @@ def main():
         labelC = tk.Label(scorewindow, text="3.", font=("Arial", 15), bg="black", fg="white")
         labelC.place(x=425, y=400)
 
+        ################################################################################################################
+
         scorewindow.mainloop()
 
     ####################################################################################################################
 
-    "Canvas"
+    # Canvas
     canvasMenu = tk.Canvas(menuwindow, width=1080, height=720, borderwidth=0, highlightthickness=0, bg="black")
     canvasMenu.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
 
     ####################################################################################################################
 
-    "Botones"
-    botonStart=tk.Button(canvasMenu, text= "Start the Journey", command=startwindow)
+    # Botones
+    botonStart = tk.Button(canvasMenu, text="Start the Journey", command=startwindow)
     botonStart.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
     botonScore = tk.Button(canvasMenu, text="Hall of Death", command=leaderboard)
     botonScore.place(relx=0.5, rely=0.6, anchor=tk.CENTER)
 
     ####################################################################################################################
 
-    "Imagenes"
+    # Imágenes
     imageTotoro = Image.open("totomenu.jpg")
     resizedTotoro = imageTotoro.resize((400, 800), Image.ANTIALIAS)
     nuevoTotoro = ImageTk.PhotoImage(resizedTotoro, master=canvasMenu)
@@ -1923,6 +1928,7 @@ def main():
     menuwindow.mainloop()
     ####################################################################################################################
 
-anim.after(5000, main)  #despues de 5 segundos, llama a main(), que destruye la animacion y arranca el menu
+
+anim.after(5000, main)  # despues de 5 segundos, llama a main(), que destruye la animacion y arranca el menu
 playIntro()
 anim.mainloop()
