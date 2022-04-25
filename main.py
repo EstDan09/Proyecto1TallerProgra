@@ -107,7 +107,7 @@ imageHcanvas.create_image(215, 100, image=nuevoH, anchor=tk.E)
 def playIntro():
     pygame.init()
     pygame.mixer.music.load("introReal.mp3")
-    pygame.mixer.music.play(loops=0)
+    pygame.mixer.music.play(loops=-1)
 
 ########################################################################################################################
 
@@ -115,6 +115,7 @@ def playIntro():
 def main():
     "Parametros de Ventana"
     anim.destroy()
+    playIntro()
     menuwindow = tk.Tk()
     menuwindow.geometry("1080x720")
     menuwindow.geometry("+250+50")
@@ -891,7 +892,7 @@ def main():
 
             "Ventana cuando se pierde en el nivel 1"
         else:
-            playSound1()
+            playIntro()
             lives = 3 #esto nos permite volver a tener 3 vidas
             endwindow1 = tk.Toplevel()
             endwindow1.title("You Lost!")
