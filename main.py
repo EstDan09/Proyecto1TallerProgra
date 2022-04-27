@@ -8,7 +8,6 @@ Monkey: The Last Dream
 # Librerias
 import tkinter as tk
 from PIL import ImageTk, Image
-import shelve
 import pygame
 import random
 import time
@@ -31,7 +30,7 @@ conf = open("config.txt", "r")
 conf1 = conf.read()
 read2 = conf1.split(",")
 
-#Variables de Config
+# Variables de Config
 global realLives
 realLives = int(read2[0])
 global damaPoints
@@ -67,7 +66,6 @@ global dcuatro
 dcuatro = 0
 global dcinco
 dcinco = 0
-# VAariables de Puntos
 
 ########################################################################################################################
 
@@ -117,6 +115,7 @@ resizedH = imageH.resize((225, 300), Image.ANTIALIAS)
 nuevoH = ImageTk.PhotoImage(resizedH, master=imageHcanvas)
 imageHcanvas.create_image(215, 100, image=nuevoH, anchor=tk.E)
 
+
 ########################################################################################################################
 
 # Funcion de sonido para la animacion splash"
@@ -124,6 +123,7 @@ def playIntro():
     pygame.init()
     pygame.mixer.music.load("introReal.mp3")
     pygame.mixer.music.play(loops=-1)
+
 
 # Alternativa de sonido para otras pantallas
 def playOutro():
@@ -323,7 +323,7 @@ def main():
                              (1 < abs(pos[2] - enemy[2]) < 10)):
                         score += enemyPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: " +str(enemyPoints)+" enemy points!",
+                        scorePlus.configure(text="Last Score Points Gained: " + str(enemyPoints) + " enemy points!",
                                             bg=random.choice(colorpool))
                         gamewindow.after(100, self.movement1)
 
@@ -451,7 +451,7 @@ def main():
                              (abs(pos[2] - enemy[2]) > 1 and abs(pos[2] - enemy[2]) < 10)):
                         score += enemyPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained:" +str(enemyPoints)+"enemy points!",
+                        scorePlus.configure(text="Last Score Points Gained:" + str(enemyPoints) + "enemy points!",
                                             bg=random.choice(colorpool))
                         gamewindow.after(100, self.movement1)
 
@@ -697,7 +697,7 @@ def main():
                     if udosuno == 0:
                         score += platPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: +"+str(platPoints)+" platform points!",
+                        scorePlus.configure(text="Last Score Points Gained: +" + str(platPoints) + " platform points!",
                                             bg=random.choice(colorpool))
                         udosuno += 1
                     canvasGame.move(principal, 0, -2)
@@ -725,7 +725,7 @@ def main():
                     if udosdos == 0:
                         score += platPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: +"+str(platPoints)+" platform points!",
+                        scorePlus.configure(text="Last Score Points Gained: +" + str(platPoints) + " platform points!",
                                             bg=random.choice(colorpool))
                         udosdos += 1
                     canvasGame.move(principal, 0, -2)
@@ -753,7 +753,7 @@ def main():
                     if utres == 0:
                         score += platPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: +"+str(platPoints)+" platform points!",
+                        scorePlus.configure(text="Last Score Points Gained: +" + str(platPoints) + " platform points!",
                                             bg=random.choice(colorpool))
                         utres += 1
                     canvasGame.move(principal, 0, -2)
@@ -1069,7 +1069,7 @@ def main():
                              (1 < abs(pos[2] - enemy[2]) < 10)):
                         score += enemyPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: " +str(enemyPoints)+" enemy points!",
+                        scorePlus.configure(text="Last Score Points Gained: " + str(enemyPoints) + " enemy points!",
                                             bg=random.choice(colorpool))
                         if enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[2] < enemy[2]:
                             score -= 15
@@ -1224,7 +1224,7 @@ def main():
                              (1 < abs(pos[2] - enemy[2]) < 10)):
                         score += enemyPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: " +str(enemyPoints)+" enemy points!",
+                        scorePlus.configure(text="Last Score Points Gained: " + str(enemyPoints) + " enemy points!",
                                             bg=random.choice(colorpool))
                         gamewindow2.after(100, self.movement1)
                         if enemy[1] < pos[1] < enemy[3] and enemy[0] < pos[2] < enemy[2]:
@@ -1466,7 +1466,7 @@ def main():
                     if duno == 0:
                         score += platPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: "+str(platPoints)+" platform points!",
+                        scorePlus.configure(text="Last Score Points Gained: " + str(platPoints) + " platform points!",
                                             bg=random.choice(colorpool))
                         duno += 1
                     canvasGame.move(principal, 0, -2)
@@ -1494,7 +1494,7 @@ def main():
                     if ddos == 0:
                         score += platPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: "+str(platPoints)+" platform points!",
+                        scorePlus.configure(text="Last Score Points Gained: " + str(platPoints) + " platform points!",
                                             bg=random.choice(colorpool))
                         ddos += 1
                     canvasGame.move(principal, 0, -2)
@@ -1522,7 +1522,7 @@ def main():
                     if dtres == 0:
                         score += platPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: "+str(platPoints)+" platform points!",
+                        scorePlus.configure(text="Last Score Points Gained: " + str(platPoints) + " platform points!",
                                             bg=random.choice(colorpool))
                         dtres += 1
                     canvasGame.move(principal, 0, -2)
@@ -1550,7 +1550,7 @@ def main():
                     if dcuatro == 0:
                         score += platPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: "+str(platPoints)+" platform points!",
+                        scorePlus.configure(text="Last Score Points Gained: " + str(platPoints) + " platform points!",
                                             bg=random.choice(colorpool))
                         dcuatro += 1
                     canvasGame.move(principal, 0, -2)
@@ -1578,7 +1578,7 @@ def main():
                     if dcinco == 0:
                         score += platPoints
                         scoreShow.configure(text="SCORE: " + str(score))
-                        scorePlus.configure(text="Last Score Points Gained: "+str(platPoints)+" platform points!",
+                        scorePlus.configure(text="Last Score Points Gained: " + str(platPoints) + " platform points!",
                                             bg=random.choice(colorpool))
                         dcinco += 1
                     canvasGame.move(principal, 0, -2)
@@ -1890,8 +1890,6 @@ def main():
         read0 = show.read()
         read = read0.split(",")
         top = natsorted(read, reverse=True)
-        print(top)
-        print(read)
 
         ################################################################################################################
 
@@ -1951,8 +1949,8 @@ def main():
             global platPoints
             global enemyPoints
             confi = open("config.txt", "w")
-            confi.write(str(entryConfig1.get()) + "," + str(entryConfig2.get())+","+str(entryConfig3.get())+","
-                         +str(entryConfig4.get()))
+            confi.write(str(entryConfig1.get()) + "," + str(entryConfig2.get()) + "," + str(entryConfig3.get()) + ","
+                        + str(entryConfig4.get()))
             confi.close()
 
             conf = open("config.txt", "r")
@@ -1965,19 +1963,22 @@ def main():
             enemyPoints = int(read2[3])
 
             configuWin.destroy()
+
         ################################################################################################################
 
         labelVidas = tk.Label(canvasCon, text="How Many Lives Do You Want? We Recommend 3", font=("Arial", 12),
                               bg="black", fg="white")
         labelVidas.place(x=100, y=304.5)
         labelPuntosDama = tk.Label(canvasCon, text="How Many Pts Do You Want For Rescuing Chihiro?", font=("Arial", 12),
-                              bg="black", fg="white")
+                                   bg="black", fg="white")
         labelPuntosDama.place(x=100, y=324.5)
-        labelPuntosPlat = tk.Label(canvasCon, text="How Many Pts Do You Want For Reaching a Platform?", font=("Arial", 12),
+        labelPuntosPlat = tk.Label(canvasCon, text="How Many Pts Do You Want For Reaching a Platform?",
+                                   font=("Arial", 12),
                                    bg="black", fg="white")
         labelPuntosPlat.place(x=92, y=344.5)
-        labelPuntosEnemy = tk.Label(canvasCon, text="How Many Pts Do You Want For Jumping Over Hazards?", font=("Arial", 12),
-                                   bg="black", fg="white")
+        labelPuntosEnemy = tk.Label(canvasCon, text="How Many Pts Do You Want For Jumping Over Hazards?",
+                                    font=("Arial", 12),
+                                    bg="black", fg="white")
         labelPuntosEnemy.place(x=77, y=364.5)
 
         ################################################################################################################
@@ -1988,7 +1989,6 @@ def main():
         ################################################################################################################
 
         configuWin.mainloop()
-
 
     # Canvas
     canvasMenu = tk.Canvas(menuwindow, width=1080, height=720, borderwidth=0, highlightthickness=0, bg="black")
@@ -2020,6 +2020,6 @@ def main():
     ####################################################################################################################
 
 
-anim.after(5000, main)  # despues de 5 segundos, llama a main(), que destruye la animacion y arranca el menu
+anim.after(5000, main)  # Despues de 5 segundos, llama a main(), que destruye la animacion y arranca el menu
 playIntro()
 anim.mainloop()
