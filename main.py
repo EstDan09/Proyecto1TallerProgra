@@ -124,13 +124,11 @@ def playIntro():
     pygame.mixer.music.load("introReal.mp3")
     pygame.mixer.music.play(loops=-1)
 
-
 # Alternativa de sonido para otras pantallas
 def playOutro():
     pygame.init()
     pygame.mixer.music.load("bye.mp3")
     pygame.mixer.music.play(loops=0)
-
 
 ########################################################################################################################
 
@@ -153,7 +151,7 @@ def main():
     def playSound1():
         pygame.init()
         pygame.mixer.music.load("soundtrack.mp3")
-        pygame.mixer.music.play(loops=3)
+        pygame.mixer.music.play(loops=-1)
         pygame.mixer.music.play()
 
     ####################################################################################################################
